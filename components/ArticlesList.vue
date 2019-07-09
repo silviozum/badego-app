@@ -1,0 +1,99 @@
+<template>
+  <div class="articles-list">
+  <div class="content-articles">
+    <a-card class="article-width">
+      <img
+        alt="example"
+        src="https://jornal.usp.br/wp-content/uploads/20170417_00_startup.jpg"
+        slot="cover"
+      />
+      <h2> Analíse de algumas questões sobre a cultura de Startups</h2>
+      <Categories />
+      <div class="footer-article">
+        <Author />
+        <div class="share-article">
+          <a href="#">
+            <a-icon type="twitter" />
+          </a>
+          <a href="#">
+            <a-icon type="facebook" />
+          </a>
+        </div>
+      </div>
+    </a-card>
+  </div>
+
+</div>
+</template>
+
+<script>
+import Categories from './Categories'
+import Author from './Author'
+export default {
+  name:'ArticlesList',
+  data () {
+    return {
+      title: 'Hello World!'
+    }
+  },
+  components:{
+    Categories,Author
+  }
+}
+</script>
+
+<style>
+.articles-list{
+  display: flex;
+  padding: 10px;
+}
+.content-articles{
+  width: 100%;
+  margin-top: 40px;
+}
+.article-width{
+  width:100%;
+  border:0;
+}
+.content-articles .ant-card{
+  font-family: 'Droid Serif', serif;
+}
+.content-articles h2{
+  font-weight: bold;
+  font-size: 18px;
+}
+.content-articles .ant-card-body {
+  padding: 15px 25px;
+}
+
+.footer-article{
+  margin-top: 10px;
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+  height: 40px;
+  line-height: 40px;
+}
+.footer-article .author{
+  width: 50%;
+}
+.share-article{
+  text-align: right;
+  width: 50%;
+}
+.share-article a{
+  font-size: 18px;
+  margin: 0 10px;
+
+}
+.share-article a i{
+  color: #de8145;
+}
+@media(max-width:768px){
+  .content-articles .ant-card-body {
+    padding: 15px 15px;
+  }
+  .articles-list{
+    display: block;
+  }
+}
+</style>
