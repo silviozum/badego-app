@@ -31,8 +31,6 @@ async function auth (email, password) {
 
 }
 
-
-
 function logout () {
   firebase.auth().signOut().then(function() {
     localStorage.setItem('user', '')
@@ -43,7 +41,12 @@ function logout () {
   return 'logout'
 }
 
+function publish (data) {
+  firebase.firestore().collection('article').doc().set(data);
+}
+
 export const userService = {
   auth,
-  logout
+  logout,
+  publish
 }

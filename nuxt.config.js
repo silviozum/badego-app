@@ -1,4 +1,4 @@
-
+import Store from './store'
 export default {
   mode: 'spa',
   /*
@@ -66,4 +66,5 @@ export default {
     extend(config, ctx) {
     }
   }
+
 }

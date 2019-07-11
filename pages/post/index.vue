@@ -10,14 +10,14 @@
       <ckeditor :editor="editor" v-model="post.editorData" :config="editorConfig"></ckeditor>
     </div>
     <div class="content-submit">
-      <a-button  v-on:click="submitPost()">Post</a-button>
+      <a-button  v-on:click="submitPost()">publicar</a-button>
     </div>
   </div>
 </template>
 
 <script>
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import { userService } from '../../services'
 import Uploadcare from 'uploadcare-vue'
 export default {
   data () {
@@ -28,7 +28,7 @@ export default {
             url:'',
             uuid:''
           },
-          editorData: '<p>manda ki fião</p>'
+          editorData: '<p>manda ki fião</p>',
       },
       editor: ClassicEditor,
       editorConfig: {
@@ -38,7 +38,9 @@ export default {
   },
   created(){
       this.$store.commit('menu/menuList', false)
-
+      if(!this.author.logged){
+        this.$router.push({ path: '/'})
+      }
   },
   computed:{
     author(){
@@ -47,9 +49,12 @@ export default {
     }
   },
   methods:{
-    submitPost(){
-      console.log(this.author)
-      console.log(this.post)
+    async submitPost(){
+      const post = this.post
+      const author = this.author
+      const publish = await userService.publish(this.post)
+
+
     },
     onSuccess(e){
       console.log(e)
@@ -64,7 +69,6 @@ export default {
   components:{
     'uploadcare':Uploadcare
   }
-
 }
 </script>
 

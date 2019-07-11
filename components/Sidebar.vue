@@ -19,8 +19,7 @@
              <img :src="user.photo">
            </nuxt-link>
            <span>{{user.name}}</span>
-           <nuxt-link to="/post" class="side-link">publicar</nuxt-link>
-          <a-button v-on:click="logout()">Logout</a-button>
+           <nuxt-link to="/post" class="side-link">publicar!!!!</nuxt-link>
         </div>
 
         <div class="menu">
@@ -32,6 +31,7 @@
           </nav>
         </div>
         <span class="copyright">creative commons</span>
+        <a-button type="ghost" v-on:click="logout()" icon="logout"></a-button>
       </div>
     </div>
   </div>
@@ -115,7 +115,6 @@ export default {
 }
 .menu{
   padding: 10px 0 20px 10%;
-  margin-top: 10%;
   border-top: 1px solid #e0e0e0;
 }
 .login{
@@ -140,21 +139,28 @@ export default {
 .auth{
   padding-left: 10%;
   margin-top: 15%;
+  padding-bottom: 20px;
 }
 .auth button{
   border-radius: 20px;
 }
 .user-preview{
   text-align: center;
-    margin-top: 15%;
+  margin-top: 10%;
+  padding: 20px 0;
+  background-color: #393a3b;
+  color: #fff;
 }
 .user-preview span{
   display:block;
   margin-top: 10px;
   margin-bottom: 20px;
 }
+.user-preview a{
+  color:#de8145
+}
 .content-user-pic{
-  width: 20%;
+  width: 30%;
   display: block;
   margin: 0 auto;
 
@@ -163,7 +169,7 @@ export default {
   width: 100%;
   border-radius: 50%
 }
-@media(max-width:420px){
+@media(max-width:580px){
   .sidebar{width: 100%;}
 }
 </style>
