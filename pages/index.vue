@@ -6,7 +6,7 @@
 
 <script>
 import ArticlesList from '../components/ArticlesList'
-import { userService } from '../services'
+import { articleService } from '../services'
 export default {
   data () {
     return {
@@ -22,7 +22,7 @@ export default {
   components:{ArticlesList},
 
   async beforeCreate(){
-    const published = await userService.getArticles()
+    const published = await articleService.list()
     this.getArticles = published
     console.log(published)
   }

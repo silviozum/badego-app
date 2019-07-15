@@ -14,7 +14,7 @@
       <Tags @getTags="upTags"/>
     </div>
     <div class="content-submit">
-      <a-button  v-on:click="submitPost()">publicar</a-button>
+      <a-button v-on:click="submitPost()">publicar</a-button>
     </div>
   </div>
 </template>

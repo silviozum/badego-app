@@ -1,6 +1,7 @@
 <template>
   <div class="articles-list">
   <div class="content-articles" v-for="item in article">
+    <nuxt-link :to="{name: 'article-id', params: { id:item.id } }">
     <a-card class="article-width">
       <img
         alt="example"
@@ -8,7 +9,7 @@
         slot="cover"
       />
       <h2> {{item.title.stringValue}}</h2>
-      <Categories v-if="item.tags" :tags="item.tags"/>
+      <Categories  :tags="item.tags"/>
       <div class="footer-article">
         <Author :author="item.author"/>
         <div class="share-article">
@@ -21,6 +22,7 @@
         </div>
       </div>
     </a-card>
+    </nuxt-link>
   </div>
 
 </div>
