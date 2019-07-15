@@ -31,6 +31,21 @@ async function auth (email, password) {
 
 }
 
+async function getArticles(){
+let resultDocs = {}
+  await firebase.firestore().collection('article').get()
+    .then(doc => {
+      doc.docs.map((item,index) => {
+        resultDocs[index] = item._document.proto.fields
+      })
+
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+    return resultDocs
+}
+
 function logout () {
   firebase.auth().signOut().then(function() {
     localStorage.setItem('user', '')
@@ -48,5 +63,6 @@ function publish (data) {
 export const userService = {
   auth,
   logout,
-  publish
+  publish,
+  getArticles
 }

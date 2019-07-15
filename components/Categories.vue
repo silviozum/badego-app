@@ -1,9 +1,7 @@
 <template>
   <div class="categories">
     <nav>
-      <li><nuxt-link to="/">#tecnolgia</nuxt-link></li>
-      <li><nuxt-link to="/">#pravida</nuxt-link></li>
-      <li><nuxt-link to="/">#ideias</nuxt-link></li>
+      <li v-for="item in tags.arrayValue.values"><nuxt-link to="/">#{{item.stringValue}}</nuxt-link></li>
     </nav>
   </div>
 </template>
@@ -11,6 +9,7 @@
 <script>
 export default {
   name:'Catergories',
+  props:['tags'],
   data () {
     return {
       title: 'Hello World!'

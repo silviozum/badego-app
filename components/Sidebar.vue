@@ -18,6 +18,7 @@
            <nuxt-link to="/" class="content-user-pic">
              <img :src="user.photo">
            </nuxt-link>
+
            <span>{{user.name}}</span>
            <nuxt-link to="/post" class="side-link">publicar!!!!</nuxt-link>
         </div>

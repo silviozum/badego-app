@@ -1,13 +1,14 @@
 <template>
   <div class="author">
     <span>de,</span>
-    <a href="#">silvio freitas</a>
+    <a href="#">{{author.mapValue.fields.name.stringValue}}</a>
   </div>
 </template>
 
 <script>
 export default {
   name:'Author',
+  props:['author'],
   data () {
     return {
       title: 'Hello World!'

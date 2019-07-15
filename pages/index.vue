@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <ArticlesList />
+    <ArticlesList :article="this.getArticles" />
   </div>
 </template>
 
 <script>
 import ArticlesList from '../components/ArticlesList'
+import { userService } from '../services'
 export default {
   data () {
     return {
-      title: 'Hello World!'
+      title: 'Hello World!',
+      getArticles: ''
     }
   },
   head () {
@@ -17,7 +19,13 @@ export default {
       title: 'Badego'
     }
   },
-  components:{ArticlesList}
+  components:{ArticlesList},
+
+  async beforeCreate(){
+    const published = await userService.getArticles()
+    this.getArticles = published
+    console.log(published)
+  }
 }
 </script>
 

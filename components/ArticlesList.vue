@@ -1,16 +1,16 @@
 <template>
   <div class="articles-list">
-  <div class="content-articles">
+  <div class="content-articles" v-for="item in article">
     <a-card class="article-width">
       <img
         alt="example"
-        src="https://jornal.usp.br/wp-content/uploads/20170417_00_startup.jpg"
+        :src="item.imgRelated.mapValue.fields.url.stringValue"
         slot="cover"
       />
-      <h2> Analíse de algumas questões sobre a cultura de Startups</h2>
-      <Categories />
+      <h2> {{item.title.stringValue}}</h2>
+      <Categories v-if="item.tags" :tags="item.tags"/>
       <div class="footer-article">
-        <Author />
+        <Author :author="item.author"/>
         <div class="share-article">
           <a href="#">
             <a-icon type="twitter" />
@@ -31,11 +31,13 @@ import Categories from './Categories'
 import Author from './Author'
 export default {
   name:'ArticlesList',
+  props:['article'],
   data () {
     return {
       title: 'Hello World!'
     }
   },
+
   components:{
     Categories,Author
   }
