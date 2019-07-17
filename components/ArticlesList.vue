@@ -1,8 +1,8 @@
 <template>
   <div class="articles-list">
   <div class="content-articles" v-for="item in article">
-    <nuxt-link :to="{name: 'article-id', params: { id:item.id } }">
-    <a-card class="article-width">
+    <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="article-width">
+    <a-card >
       <img
         alt="example"
         :src="item.imgRelated.mapValue.fields.url.stringValue"
@@ -47,19 +47,23 @@ export default {
 
 <style>
 .articles-list{
-  display: flex;
+  justify-content: space-between;
   padding: 10px;
 }
 .content-articles{
-  width: 100%;
   margin-top: 40px;
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+
 }
 .article-width{
-  width:100%;
   border:0;
 }
+
 .content-articles .ant-card{
   font-family: 'Droid Serif', serif;
+  border: 0;
 }
 .content-articles h2{
   font-weight: bold;
@@ -96,6 +100,10 @@ export default {
     padding: 15px 15px;
   }
   .articles-list{
+    display: block;
+  }
+  .content-articles{
+    width: 100%;
     display: block;
   }
 }

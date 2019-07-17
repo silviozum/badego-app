@@ -54,7 +54,7 @@ export default {
     },
     async auth(){
       const user = await userService.auth()
-      console.log(user)
+      if(user){
       const setUser = {
         name:user.displayName,
         email:user.email,
@@ -65,6 +65,9 @@ export default {
 
       this.$store.commit('user/setUser', setUser)
       localStorage.setItem('user', JSON.stringify(setUser))
+      this.$store.commit('menu/menuList', false)
+      location.reload();
+    }
 
     },
     async logout(){

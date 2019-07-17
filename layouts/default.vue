@@ -64,11 +64,6 @@ a:hover{
 a, i{
   color: #282828;
 }
-.content-articles{
-  display: flex;
-}
-.article-width{
-  width:100%;
-  border:0;
-}
+
+
 </style>
