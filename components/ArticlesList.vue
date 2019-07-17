@@ -36,10 +36,9 @@ export default {
   props:['article'],
   data () {
     return {
-      title: 'Hello World!'
+      loading:true
     }
   },
-
   components:{
     Categories,Author
   }

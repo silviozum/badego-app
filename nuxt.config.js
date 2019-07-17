@@ -40,7 +40,8 @@ export default {
   */
   plugins: [
     '@/plugins/antd-ui',
-    '@/plugins/ckeditor'
+    '@/plugins/ckeditor',
+    '@/plugins/moment'
   ],
   /*
   ** Nuxt.js modules

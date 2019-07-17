@@ -28,6 +28,7 @@
 </template>
 <script>
 export default {
+  name:'Tags',
   data () {
     return {
       tags: ['Hot ROLLS', 'ngm liga', 'São Paulo'],
