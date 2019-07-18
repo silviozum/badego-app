@@ -17,7 +17,8 @@ async function submitComment(headTalk,author,articleId){
     head_talk: headTalk,
     author: author,
     article_id: articleId,
-    inside_talk:{}
+    inside_talk:{},
+    createdAt: new Date()
   }
   await firebase.firestore().collection('comments').add(data)
   .then(function(docRef) {

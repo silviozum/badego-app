@@ -12,7 +12,7 @@
          </div>
         </div>
         <div class="auth"  v-if="!user.logged">
-          <a-button icon="google" v-on:click="auth()">Conectar com Google</a-button>
+               <Connect />
         </div>
         <div class="user-preview" v-if="user.logged">
            <nuxt-link to="/" class="content-user-pic">
@@ -40,6 +40,7 @@
 
 <script>
 import { userService } from '../services'
+import Connect from './Connect'
 export default {
   name: 'Sidebar',
   data () {
@@ -52,30 +53,13 @@ export default {
     close(){
       this.$store.commit('menu/menuList', false)
     },
-    async auth(){
-      const user = await userService.auth()
-      if(user){
-      const setUser = {
-        name:user.displayName,
-        email:user.email,
-        uid:user.uid,
-        photo:user.photoURL,
-        logged:true
-      }
-
-      this.$store.commit('user/setUser', setUser)
-      localStorage.setItem('user', JSON.stringify(setUser))
-      this.$store.commit('menu/menuList', false)
-      location.reload();
-    }
-
-    },
     async logout(){
       const logout = await userService.logout();
       this.$store.commit('user/logout')
+        location.reload();
     }
-
   },
+  components:{Connect},
   computed:{
     user(){
       const item  = this.$store.getters['user/getUser'];

@@ -2,7 +2,7 @@
   <div>
   <div class="comments" v-if="comments">
     <a-comment v-for="(item,index) in comments" :key="index">
-      <span slot="actions">Reply to</span>
+      <span class="date-comment" slot="actions">{{item.data.createdAt | moment("from", "now", true)}}</span>
       <a slot="author">{{item.data.author.name}}</a>
       <a-avatar
         slot="avatar"
@@ -10,7 +10,7 @@
         alt="Han Solo"
       />
       <p slot="content">{{item.data.head_talk}}</p>
-      <a-comment>
+      <!-- <a-comment>
         <a slot="author">Han Solo</a>
         <a-avatar
           slot="avatar"
@@ -18,7 +18,7 @@
           alt="Han Solo"
         />
         <p slot="content">We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure).</p>
-      </a-comment>
+      </a-comment> -->
     </a-comment>
   </div>
   <a-form-item>
@@ -65,7 +65,6 @@ export default {
       const articleId = this.$route.params.id
       this.submitting = true
       const sendComment = await commentsService.submitComment(this.value, this.user, articleId );
-      console.log(sendComment)
       if(sendComment){
         setTimeout(() => {
           this.submitting = false
@@ -88,5 +87,11 @@ export default {
 </script>
 
 <style>
-
+.date-comment{
+  font-size: 12px;
+  cursor: inherit !important;
+}
+.date-comment:hover{
+  color:rgba(0, 0, 0, 0.45) !important;
+}
 </style>
