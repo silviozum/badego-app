@@ -33,6 +33,7 @@ export default {
       dataPost: null
     }
   },
+
   components:{Author, Comments},
   computed:{
     id(){

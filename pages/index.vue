@@ -24,7 +24,6 @@ export default {
   async beforeCreate(){
     const published = await articleService.list()
     this.getArticles = published
-    console.log(published)
   }
 }
 </script>

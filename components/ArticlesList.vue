@@ -5,13 +5,13 @@
     <a-card >
       <img
         alt="example"
-        :src="item.imgRelated.mapValue.fields.url.stringValue"
+        :src="item.data.imgRelated.mapValue.fields.url.stringValue"
         slot="cover"
       />
-      <h2> {{item.title.stringValue}}</h2>
-      <Categories  :tags="item.tags"/>
+      <h2> {{item.data.title.stringValue}}</h2>
+      <Categories  :tags="item.data.tags"/>
       <div class="footer-article">
-        <Author :author="item.author"/>
+        <Author :author="item.data.author"/>
         <div class="share-article">
           <a href="#">
             <a-icon type="twitter" />

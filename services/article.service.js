@@ -10,15 +10,16 @@ var firebaseConfig = {
     storageBucket: "badego-cc1ba.appspot.com",
 };
 async function list(){
-let resultDocs = {}
+let resultDocs = []
   await firebase.firestore().collection('article').get()
-    .then(doc => {
-      doc.docs.map((item,index) => {
-        resultDocs[index] = item._document.proto.fields
-        resultDocs[index].id = item.id
-      })
-
-    })
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        resultDocs.push({
+          data:doc._document.proto.fields,
+          id:doc.id
+        })
+      });
+  })
     .catch(err => {
       console.log('Error getting document', err);
     });
