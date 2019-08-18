@@ -1,6 +1,6 @@
 
 import * as firebase from 'firebase'
-
+import moment from 'moment'
 // // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyD3jpyFsPoO-t-xjUYt8hSZM_aD3dReXVc",
@@ -18,7 +18,7 @@ async function submitComment(headTalk,author,articleId){
     author: author,
     article_id: articleId,
     inside_talk:{},
-    createdAt: new Date()
+    createdAt: moment().format('ll')
   }
   await firebase.firestore().collection('comments').add(data)
   .then(function(docRef) {

@@ -63,6 +63,7 @@ export default {
         return;
       }
       const articleId = this.$route.params.id
+      console.log(this.value)
       this.submitting = true
       const sendComment = await commentsService.submitComment(this.value, this.user, articleId );
       if(sendComment){

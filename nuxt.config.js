@@ -41,7 +41,8 @@ export default {
   plugins: [
     '@/plugins/antd-ui',
     '@/plugins/ckeditor',
-    '@/plugins/moment'
+    '@/plugins/moment',
+    '@/plugins/social-share'
   ],
   /*
   ** Nuxt.js modules

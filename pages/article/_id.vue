@@ -3,7 +3,7 @@
     <div class="header-author">
       <Author :author="author" v-if="!!author"/>
       <div class="created-at">
-        <span>há {{post.createdAt.timestampValue| moment("from", "now", true) }}</span>
+        <span>há {{post.createdAt.timestampValue}}</span>
       </div>
     </div>
     <div class="content-image-related">
@@ -72,7 +72,9 @@ export default {
   font-weight: bold;
 }
 .content-image-related img{
-  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
 }
 .content-render-article img{
   width: 100%;
