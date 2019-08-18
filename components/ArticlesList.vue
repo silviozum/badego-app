@@ -1,5 +1,37 @@
 <template>
   <div class="articles-list">
+
+  <div class="content-article-release">
+    <div class="article-release" v-for="(item,index) in article" >
+      <div v-if="index === 0">
+          <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
+          :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
+            <h2> {{item.data.title.stringValue}}</h2>
+        </nuxt-link>
+        <div class="footer-release">
+          <div class="left-footer-release">
+            <Author :author="item.data.author" :dateRelease="item.data.createdAt.timestampValue"/>
+          </div>
+          <SocialShare :item="item.data" />
+        </div>
+      </div>
+      <span class="title-section" v-if="index === 0">mais lidos</span>
+      <div class="list-articles"  v-if="index > 0 && index <4">
+        <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="article-width">
+        <a-card >
+          <div class="content-image-article"
+          :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
+        </div>
+        <div class="content-article-infos">
+          <h3> {{item.data.title.stringValue}}</h3>
+          <!-- <Categories  :tags="item.data.tags"/> -->
+          <span class="post-minutman">mais lidos</span>
+        </div>
+        </a-card>
+        </nuxt-link>
+      </div>
+    </div>
+  </div>
   <!-- <div class="content-articles" v-for="item in article">
     <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="article-width">
     <a-card >
@@ -18,15 +50,6 @@
     </a-card>
     </nuxt-link>
   </div> -->
-  <div class="content-article-release">
-    <div class="article-release" v-for="(item,index) in article" v-if="index === 5">
-
-    <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
-     :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
-          <h2> {{item.data.title.stringValue}}</h2>
-      </nuxt-link>
-    </div>
-  </div>
 
 </div>
 </template>
@@ -57,14 +80,13 @@ export default {
 <style>
 body{
   background-color: #393e3c;
-
 }
 .to-release{
   background-size: cover;
   background-repeat: no-repeat;
   display: inline-block;
   width: 100%;
-  height: 600px;
+  height: 550px;
   position: relative;
   background-position: center;
 }
@@ -100,6 +122,11 @@ will-change: transform;
   margin: 0;
   padding: 18px;
 }
+.footer-release{
+  display: flex;
+  padding: 12px;
+}
+
 .content-articles{
   margin-top: 40px;
   width: 50%;
@@ -111,13 +138,34 @@ will-change: transform;
   border:0;
 }
 
-.content-articles .ant-card{
+.list-articles .ant-card{
   font-family: 'Droid Serif', serif;
   border: 0;
+  background-color: #393e3c;
 }
-.content-articles h2{
+.list-articles h3{
   font-weight: bold;
   font-size: 18px;
+  color: #fff;
+  line-height: 23px;
+  letter-spacing: -0.8px;
+  margin: 0;
+}
+.list-articles .content-image-article{
+  width: 112px;
+  height: 112px;
+  background-image: url(https://ucarecdn.com/d3166c3d-185f-4d77-ac19-33c435cb085e/);
+background-size: cover;
+background-position: center;
+display: inline-block;
+margin-right: 12px
+}
+.list-articles .content-image-article img{
+  width: 100%;
+}
+.list-articles .ant-card-body{
+  display: flex;
+  padding: 12px;
 }
 .content-articles .ant-card-body {
   padding: 15px 25px;
@@ -132,6 +180,24 @@ will-change: transform;
 }
 .footer-article .author{
   width: 50%;
+}
+.title-section{
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: -0.8px;
+  margin-left: 12px;
+  margin-top: 50px;
+  display: block;
+  font-weight: bold;
+}
+.content-article-infos{
+    width: 62%;
+    display: inline-block;
+}
+.post-minutman{
+  display: block;
+  color:#93999d;
+  font-size: 13px;
 }
 
 

@@ -1,14 +1,19 @@
 <template>
   <div class="author">
-    <span>de,</span>
-    <a href="#">{{author.mapValue.fields.name.stringValue}}</a>
+    <div class="author-avatar">
+      <img :src="author.mapValue.fields.photo.stringValue">
+    </div>
+    <div class="author-infos">
+      <a href="#">{{author.mapValue.fields.name.stringValue}}</a>
+      <span class="date-release">{{dateRelease| moment("from", "now", true)}}</span>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name:'Author',
-  props:['author'],
+  props:['author', 'dateRelease'],
   data () {
     return {
       title: 'Hello World!'
@@ -19,15 +24,38 @@ export default {
 
 <style>
 .author{
-  display: flex;
   font-weight: bold;
   font-style: italic;
+  display: flex;
+}
+.author-infos{
+  display: block
 }
 .author span{
   color:#c1c1c1;
 }
 .author a{
-  margin-left: 5px;
   color: #de8145;
+  font-size: 14px;
 }
+.author-avatar{
+  width: 44px;
+  max-width: 54px;
+  display: inline-block;
+}
+.author-avatar img{
+  width: 100%;
+  border-radius: 100px;
+}
+.author-infos{
+  line-height: 20px;
+  margin-left: 14px;
+}
+.date-release{
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  display: block;
+}
+
 </style>

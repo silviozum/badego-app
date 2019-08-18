@@ -75,6 +75,7 @@ export default {
     async submitPost(){
       this.post.author = this.author
       const publish = await userService.publish(this.post)
+      console.log(publish)
     },
     onSuccess(e){
       this.post.imgRelated.url = e.cdnUrl
