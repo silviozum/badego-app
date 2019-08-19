@@ -1,19 +1,25 @@
 <template>
   <div class="container content-article" v-if="post">
-    <div class="header-author">
-      <Author :author="author" v-if="!!author"/>
-      <div class="created-at">
-        <span>há {{post.createdAt.timestampValue}}</span>
-      </div>
-    </div>
+
     <div class="content-image-related">
       <img :src="post.imgRelated.mapValue.fields.url.stringValue">
+    </div>
+    <div class="header-author">
+      <Author :author="author" v-if="!!author" :dateRelease="post.createdAt.timestampValue"/>
     </div>
     <div class="content-title">
       <h1>{{post.title.stringValue}}</h1>
     </div>
     <div class="content-render-article" v-html="dataPost"></div>
-    <span class="title-to-comments">O que você acha?</span>
+    <div class="footer-post">
+      <div class="interactions">
+        <a-icon type="like"/>
+      </div>
+      <SocialShare :item="post" />
+    </div>
+
+    <ArticlesList :article="relatedArticles" :where="'article'"/>
+    <span class="title-section">O que você acha?</span>
     <div class="content-comments">
       <Comments :id="id"/>
     </div>
@@ -24,17 +30,21 @@
 import { articleService } from '../../services'
 import Author from '../../components/Author'
 import Comments from '../../components/Comments'
+import SocialShare from '../../components/SocialShare'
+import ArticlesList from '../../components/ArticlesList'
+
 export default {
   data () {
     return {
       title: 'Hello World!',
       post:  null,
       author:null,
-      dataPost: null
+      dataPost: null,
+      relatedArticles:[]
     }
   },
 
-  components:{Author, Comments},
+  components:{Author, Comments, SocialShare, ArticlesList},
   computed:{
     id(){
       return this.$route.params.id
@@ -46,9 +56,21 @@ export default {
       this.post = item
       this.dataPost = item.editorData.stringValue
       this.author = item.author
+      this.title = this.post.title.stringValue
+      this.related()
     }
-
-
+  },
+  methods:{
+    async related(){
+      const published = await articleService.list()
+      this.relatedArticles = published
+      console.log(published)
+    }
+  },
+  head () {
+ return {
+      title: this.title,
+    }
   }
 }
 </script>
@@ -59,17 +81,30 @@ export default {
   justify-content: space-between;
   margin: 15px 0;
 }
+.footer-post{
+  display: block;
+  margin: 60px 0;
+}
 .content-article{
   padding: 20px;
   max-width: 1336px;
   margin: 0 auto;
+  padding-top: 45px;
+  color: #fff;
+  padding-bottom: 65px;
+}
+.interactions{
+  float: left;
+    padding-left: 12px;
+    padding-top: 10px;
 }
 .content-title{
   margin: 20px 0;
-  padding: 0 5%;
+  padding: 0 10px;
 }
 .content-title h1{
   font-weight: bold;
+  color: #fff;
 }
 .content-image-related img{
   max-width: 100%;
@@ -80,7 +115,15 @@ export default {
   width: 100%;
 }
 .content-render-article p{
-  padding: 0 8%;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 18px;
+}
+.content-render-article p i{
+  color: #fff;
+}
+.content-render-article p a{
+  color: #fff;
 }
 .title-to-comments{
   display: block;
@@ -93,4 +136,5 @@ export default {
   max-width: 90%;
   margin: 0 auto;
 }
+
 </style>

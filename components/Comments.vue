@@ -22,14 +22,16 @@
     </a-comment>
   </div>
   <a-form-item>
-   <a-textarea :rows="4" @change="handleChange" :value="value" ></a-textarea>
+   <a-textarea :rows="4" @change="handleChange" :value="value" class="textarea-comments"></a-textarea>
  </a-form-item>
  <a-form-item>
    <a-button
      htmlType="submit"
      :loading="submitting"
      @click="handleSubmit"
-     type="primary"
+       class="btn-submit-comments"
+
+     ghost
    >
      Commentar
    </a-button>
@@ -63,7 +65,6 @@ export default {
         return;
       }
       const articleId = this.$route.params.id
-      console.log(this.value)
       this.submitting = true
       const sendComment = await commentsService.submitComment(this.value, this.user, articleId );
       if(sendComment){
@@ -81,18 +82,53 @@ export default {
   },
   async mounted(){
     const getComments = await commentsService.getComments(this.$route.params.id)
-    console.log(getComments)
     this.comments = getComments
   }
 }
 </script>
 
 <style>
+.comments{
+  color: #fff;
+}
+.comments .ant-comment-content-author-name{color: #fff;}
 .date-comment{
   font-size: 12px;
   cursor: inherit !important;
+  color: #93999d!important;
+
 }
-.date-comment:hover{
-  color:rgba(0, 0, 0, 0.45) !important;
+
+.comments .ant-comment-actions{
+  margin-top:3px;
+  margin-bottom: 12px;
+}
+.comments .ant-comment-content-detail p{
+  margin: 0;
+}
+.textarea-comments{
+  color: #fff;
+  background-color: #25292c;
+  border: 2px solid #545658;
+  margin-top: 27px;
+}
+.textarea-comments:hover{
+  outline: none;
+  border: 2px solid #ffff;
+}
+.ant-comment-content-author-name a{
+  color: #de8145 !important;
+  font-size: 12px !important;
+  font-weight: bold;
+  font-style: italic;
+  white-space: nowrap;
+}
+.btn-submit-comments{
+  border: 0 !important;
+  position: absolute;
+  top: 0;
+}
+.btn-submit-comments:hover{
+  color: #de8145 !important
 }
 </style>

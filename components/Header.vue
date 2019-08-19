@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="title-site">
-    <h1>badego</h1>
+    <nuxt-link to="/" class="title-blog"><h1>badego</h1></nuxt-link>
   </div>
   <div class="header">
     <a-row>
@@ -12,7 +12,7 @@
         </div>
       </a-col>
       <a-col :span="8">
-         <nuxt-link to="/" class="title-blog">badego</nuxt-link>
+         
       </a-col>
       <a-col :span="8">
         <a-button type="ghost">
@@ -58,7 +58,10 @@ export default {
 .header{
     border-bottom: 1px solid #e0e0e0;
     padding: 15px;
-    display: none;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 100
 }
 .header .ant-row .ant-col-8:nth-child(2){
   text-align: center;

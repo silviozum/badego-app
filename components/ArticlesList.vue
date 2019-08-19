@@ -3,7 +3,7 @@
 
   <div class="content-article-release">
     <div class="article-release" v-for="(item,index) in article" >
-      <div v-if="index === 0">
+      <div v-if="index === 0 && where !=='article'" >
           <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
           :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
             <h2> {{item.data.title.stringValue}}</h2>
@@ -15,8 +15,8 @@
           <SocialShare :item="item.data" />
         </div>
       </div>
-      <span class="title-section" v-if="index === 0">mais lidos</span>
-      <div class="list-articles"  v-if="index > 0 && index <4">
+      <span class="title-section" v-if="index === 0">leia também</span>
+      <div class="list-articles"  v-if="index > 0 && index < 4">
         <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="article-width">
         <a-card >
           <div class="content-image-article"
@@ -25,7 +25,8 @@
         <div class="content-article-infos">
           <h3> {{item.data.title.stringValue}}</h3>
           <!-- <Categories  :tags="item.data.tags"/> -->
-          <span class="post-minutman">mais lidos</span>
+          <!-- <span class="post-minutman">mais lidos</span> -->
+          <span class="post-minutman">leia também</span>
         </div>
         </a-card>
         </nuxt-link>
@@ -60,15 +61,10 @@ import Author from './Author'
 import SocialShare from './SocialShare'
 export default {
   name:'ArticlesList',
-  props:['article'],
+  props:['article', 'where'],
   data () {
     return {
       loading:true
-    }
-  },
-  computed:{
-    url(){
-      return window.location.href
     }
   },
   components:{
@@ -78,9 +74,7 @@ export default {
 </script>
 
 <style>
-body{
-  background-color: #393e3c;
-}
+
 .to-release{
   background-size: cover;
   background-repeat: no-repeat;
@@ -98,9 +92,9 @@ body{
 .to-release:after{
   content: '';
 background-image: linear-gradient(
-  rgba(57,60,62,.9) 0,
+  rgba(37,41,44,.9) 0,
   transparent 50%,
-  rgb(57,60,62));
+  rgb(37,41,44));
 position: absolute;
 width: 100%;
 height: 100%;
@@ -118,7 +112,7 @@ will-change: transform;
   font-weight: bold;
   letter-spacing: -0.05em !important;
   text-shadow: 0px 0px 20px #393c2e;
-  z-index: 100;
+  z-index: 99;
   margin: 0;
   padding: 18px;
 }
@@ -126,13 +120,14 @@ will-change: transform;
   display: flex;
   padding: 12px;
 }
-
+.left-footer-release{
+  width: 50%;
+}
 .content-articles{
   margin-top: 40px;
   width: 50%;
   display: inline-block;
   vertical-align: top;
-
 }
 .article-width{
   border:0;
@@ -141,8 +136,9 @@ will-change: transform;
 .list-articles .ant-card{
   font-family: 'Droid Serif', serif;
   border: 0;
-  background-color: #393e3c;
+  background-color: #25292c;
 }
+
 .list-articles h3{
   font-weight: bold;
   font-size: 18px;

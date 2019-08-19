@@ -85,7 +85,7 @@ export default {
 .sidebar{
   position: absolute;
   z-index: 999;
-  background-color: #fff;
+  background-color: rgba(0,0,0,0.8);
   height: 100vh;
   top: 0;
   left:0;

@@ -36,6 +36,7 @@ export default {
   },
   computed:{
     url(){
+      console.log(this.$route.query.page)
       return window.location
     }
   }
@@ -46,17 +47,22 @@ export default {
 
 .share-article{
   text-align: right;
-  width: 50%;
-  display: flex;
+  width: 100%;
+
+  display: block;
   justify-content: flex-end;
 }
 .share-article i{
   font-size: 18px;
   border-radius: 50px;
-  border:2px solid #e0e0e0;
+  border: 2px solid #545658;
   padding: 5px;
   box-sizing: border-box;
 }
+ .anticon{
+   color: #fff;
+   font-size: 26px;
+ }
 /* .share-article i{
   color: #de8145;
   width: 42px;
@@ -65,7 +71,7 @@ export default {
   display: block;
 } */
 
-i.like-icon{color:0000;}
+i.like-icon{color:#0000 }
 i.like-icon:hover{color:#3ad0cf;}
 i.dislike-icon{}
 i.dislike-icon:hover{}

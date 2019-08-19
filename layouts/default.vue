@@ -53,6 +53,7 @@ body{
   font-family: 'Droid Serif', serif !important;
   font-size: 16px;
   word-spacing: 1px;
+  background-color: #25292c;
 }
 *,
 *:before,

@@ -28,15 +28,14 @@ export default {
   font-style: italic;
   display: flex;
 }
-.author-infos{
-  display: block
-}
+
 .author span{
   color:#c1c1c1;
 }
 .author a{
   color: #de8145;
   font-size: 14px;
+  white-space: nowrap;
 }
 .author-avatar{
   width: 44px;
@@ -50,6 +49,9 @@ export default {
 .author-infos{
   line-height: 20px;
   margin-left: 14px;
+  display: block;
+  white-space:
+
 }
 .date-release{
   color: #fff;
@@ -57,5 +59,6 @@ export default {
   font-style: normal;
   display: block;
 }
+
 
 </style>
