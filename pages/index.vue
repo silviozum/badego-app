@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="home-container">
     <ArticlesList :article="this.getArticles" />
   </div>
 </template>
@@ -29,5 +29,11 @@ export default {
 </script>
 
 <style>
+.ant-btn-ghost {
+  border: none !important;
+}
+.home-container{
+  padding-bottom: 80px;
+}
 
 </style>

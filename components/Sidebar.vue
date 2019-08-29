@@ -103,7 +103,7 @@ export default {
 }
 .menu{
   padding: 10px 0 20px 10%;
-  border-top: 1px solid #e0e0e0;
+
 }
 .login{
   padding-top: 20px;
@@ -116,6 +116,7 @@ export default {
   margin-top: 70px;
   display: block;
 }
+.menu nav li a{color: #fff;}
 .menu nav li,
 .side-link{
   font-size: 16px;
@@ -136,7 +137,6 @@ export default {
   text-align: center;
   margin-top: 10%;
   padding: 20px 0;
-  background-color: #393a3b;
   color: #fff;
 }
 .user-preview span{

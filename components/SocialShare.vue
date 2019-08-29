@@ -36,7 +36,6 @@ export default {
   },
   computed:{
     url(){
-      console.log(this.$route.query.page)
       return window.location
     }
   }

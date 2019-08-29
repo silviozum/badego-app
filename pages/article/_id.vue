@@ -4,6 +4,7 @@
     <div class="content-image-related">
       <img :src="post.imgRelated.mapValue.fields.url.stringValue">
     </div>
+
     <div class="header-author">
       <Author :author="author" v-if="!!author" :dateRelease="post.createdAt.timestampValue"/>
     </div>
@@ -12,9 +13,8 @@
     </div>
     <div class="content-render-article" v-html="dataPost"></div>
     <div class="footer-post">
-      <div class="interactions">
-        <a-icon type="like"/>
-      </div>
+
+  <interactions :id="id" :list="post.like.arrayValue.values" v-if="id"/>
       <SocialShare :item="post" />
     </div>
 
@@ -32,11 +32,11 @@ import Author from '../../components/Author'
 import Comments from '../../components/Comments'
 import SocialShare from '../../components/SocialShare'
 import ArticlesList from '../../components/ArticlesList'
+import Interactions from '../../components/Like'
 
 export default {
   data () {
     return {
-      title: 'Hello World!',
       post:  null,
       author:null,
       dataPost: null,
@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  components:{Author, Comments, SocialShare, ArticlesList},
+  components:{Author, Comments, SocialShare, ArticlesList,Interactions},
   computed:{
     id(){
       return this.$route.params.id
@@ -53,6 +53,7 @@ export default {
   async mounted(){
     const item = await articleService.article(this.$route.params.id)
     if(item){
+
       this.post = item
       this.dataPost = item.editorData.stringValue
       this.author = item.author
@@ -64,7 +65,9 @@ export default {
     async related(){
       const published = await articleService.list()
       this.relatedArticles = published
-      console.log(published)
+    },
+    likeIt(){
+      console.log(this.$route.params)
     }
   },
   head () {

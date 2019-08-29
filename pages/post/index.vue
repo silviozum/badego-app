@@ -3,10 +3,20 @@
 
     <div class="content-editor">
       <input type="title" v-model="post.title" class="edit-post-title">
-      <uploadcare :publicKey="uploadcareKey" @success="onSuccess" @error="onError" class="media-related-post">
-        <a-button>upload imagem em Destaque</a-button>
-        <img :src="post.imgRelated.url" />
-      </uploadcare>
+      <form ref="form">
+
+        <input
+        id="files"
+        type="file"
+        name="file"
+        ref="uploadInput"
+        accept="image/*"
+        :multiple="false"
+        @change="detectFiles($event)" />
+      </form>
+      <div v-if="post.imgRelated">
+        <img :src="post.imgRelated">
+      </div>
       <ckeditor :editor="editor" v-model="post.editorData" :config="editorConfig"></ckeditor>
     </div>
     <div class="content-tags">
@@ -14,36 +24,35 @@
       <Tags @getTags="upTags"/>
     </div>
     <div class="content-submit">
-      <a-button v-on:click="submitPost()">publicar</a-button>
+      <a-button v-on:click="submitPost()" ghost>publicar</a-button>
     </div>
   </div>
 </template>
 
 <script>
+
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Tags from '../../components/Tags'
 import { userService } from '../../services'
-import Uploadcare from 'uploadcare-vue'
+
+
+
 export default {
   data () {
     return {
       post:{
           title:'título aqui fião',
-          imgRelated:{
-            url:'',
-            uuid:''
-          },
           createdAt: new Date(),
           tags:'',
+          imgRelated:'',
           editorData: '<p>manda ki fião</p>',
       },
       editor: ClassicEditor,
       editorConfig: {
         height: '500px',
-
         image: {
             // You need to configure the image toolbar, too, so it uses the new style buttons.
-            toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+            toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight', 'imageUpload' ],
             styles: [
                 // This option is equal to a situation where no style is applied.
                 'full',
@@ -66,16 +75,28 @@ export default {
     author(){
       const user = this.$store.getters['user/getUser']
       return user
-    },
-    uploadcareKey(){
-      return '2c93340bc1569cf345b0'
     }
   },
   methods:{
+    detectFiles(e){
+      let fileList = e.target.files || e.dataTransfer.files
+        Array.from(Array(fileList.length).keys()).map(x => {
+          this.uploadImage(fileList[x])
+        })
+    },
+     uploadImage (file) {
+      const uploadImageReleated = userService.uploadImageReleated(file)
+
+      uploadImageReleated.then(function(res){
+        console.log(res)
+      })
+
+
+    },
     async submitPost(){
       this.post.author = this.author
+      this.post.like = []
       const publish = await userService.publish(this.post)
-      console.log(publish)
     },
     onSuccess(e){
       this.post.imgRelated.url = e.cdnUrl
@@ -87,10 +108,10 @@ export default {
     upTags(e){
       this.post.tags = e
     }
-
   },
+
   components:{
-    'uploadcare':Uploadcare, Tags
+     Tags
   }
 }
 </script>
