@@ -27,10 +27,13 @@ export default {
   font-weight: bold;
   font-style: italic;
   display: flex;
+  padding-left: 40px;
 }
 
 .author span{
-  color:#c1c1c1;
+  color:#93999d;
+  font-size: 12px;
+  font-weight: normal;
 }
 .author a{
   color: #de8145;

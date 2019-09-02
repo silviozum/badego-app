@@ -1,24 +1,57 @@
 <template>
-  <div class="container">
-
-    <div class="content-editor">
-      <input type="title" v-model="post.title" class="edit-post-title">
-      <form ref="form">
-
-        <input
-        id="files"
-        type="file"
-        name="file"
-        ref="uploadInput"
-        accept="image/*"
-        :multiple="false"
-        @change="detectFiles($event)" />
-      </form>
-      <div v-if="post.imgRelated">
-        <img :src="post.imgRelated">
-      </div>
-      <ckeditor :editor="editor" v-model="post.editorData" :config="editorConfig"></ckeditor>
+  <div class="main-to-post">
+  <input type="title" v-model="post.title" class="edit-post-title">
+  <div class="content-editor">
+    <form ref="form">
+      <input
+      id="files"
+      type="file"
+      name="file"
+      ref="uploadInput"
+      accept="image/*"
+      :multiple="false"
+      @change="detectFiles($event, 'image')" />
+    </form>
+    <div v-if="post.imgRelated">
+      <img :src="post.imgRelated">
     </div>
+  </div>
+    <a-tabs defaultActiveKey="2" class="content-tabs">
+      <a-tab-pane key="1">
+        <span slot="tab">
+          <a-icon type="read" />
+          Artigos
+        </span>
+      </a-tab-pane>
+      <a-tab-pane key="2">
+        <span slot="tab">
+          <a-icon type="sound" />
+          Podcast
+        </span>
+        <div class="content-editor">
+          <form ref="form">
+            <input
+            id="files"
+            type="file"
+            name="file"
+            ref="uploadInput"
+            :multiple="false"
+            @change="detectFiles($event, 'podcast')" />
+          </form>
+          <div v-if="post.imgRelated">
+            <img :src="post.imgRelated">
+          </div>
+        </div>
+      </a-tab-pane>
+      <a-tab-pane key="3">
+        <span slot="tab">
+          <a-icon type="video-camera" />
+          Videos
+        </span>
+        Tab 1
+      </a-tab-pane>
+    </a-tabs>
+    <ckeditor :editor="editor" v-model="post.editorData" :config="editorConfig"></ckeditor>
     <div class="content-tags">
       <span>Tags</span>
       <Tags @getTags="upTags"/>
@@ -34,8 +67,6 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Tags from '../../components/Tags'
 import { userService } from '../../services'
-
-
 
 export default {
   data () {
@@ -78,20 +109,25 @@ export default {
     }
   },
   methods:{
-    detectFiles(e){
+    detectFiles(e, type){
       let fileList = e.target.files || e.dataTransfer.files
         Array.from(Array(fileList.length).keys()).map(x => {
-          this.uploadImage(fileList[x])
+          if(type === 'image'){
+              this.uploadImage(fileList[x])
+          }else if(type === 'podcast'){
+              this.uploadPodcast(fileList[x])
+          }
         })
     },
      uploadImage (file) {
       const uploadImageReleated = userService.uploadImageReleated(file)
-
       uploadImageReleated.then(function(res){
         console.log(res)
       })
 
-
+    },
+    uploadPodcast(file){
+      console.log(file)
     },
     async submitPost(){
       this.post.author = this.author
@@ -152,5 +188,8 @@ export default {
  .content-tags{
    margin: 20px 0;
    padding-left: 20px;
+ }
+ .main-to-post{
+   padding-top:100px;
  }
 </style>

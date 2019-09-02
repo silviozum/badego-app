@@ -1,11 +1,13 @@
 
 const state ={
+  theme:'light',
    user:{
      name:'namme',
      email:'email',
      uid:0,
      photo:'defaul',
-     logged:false
+     logged:false,
+
    }
 }
 
@@ -13,6 +15,19 @@ const mutations = {
   setUser (state, payload) {
     console.log(state)
     state.user = payload
+  },
+  setTheme (state, payload) {
+    console.log(payload)
+
+    if(payload === true){
+      state.theme = 'dark'
+    }else{
+      state.theme = 'light'
+    }
+
+    console.log(state.theme )
+
+
   },
   userLogged(state){
     var localUser = localStorage.getItem('user')
@@ -26,7 +41,8 @@ const mutations = {
 }
 
 const getters = {
-  getUser: state => state.user
+  getUser: state => state.user,
+  getTheme: state => state.theme
 }
 
 export default {

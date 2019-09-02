@@ -65,9 +65,6 @@ export default {
     async related(){
       const published = await articleService.list()
       this.relatedArticles = published
-    },
-    likeIt(){
-      console.log(this.$route.params)
     }
   },
   head () {

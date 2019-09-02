@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="theme">
     <Header v-if="user.logged"/>
     <div class="connect" v-if="!user.logged">
       <span class="title-blog">badego</span>
@@ -28,9 +28,14 @@ export default{
     },
     user(){
       let getUser = this.$store.getters['user/getUser'];
-      console.log(getUser)
+      console.log(getUser.theme)
       return getUser;
+    },
+    theme(){
+      const qs = this.$store.getters['user/getTheme'] 
+      return qs
     }
+
   },
   components:{
     Header,
@@ -41,6 +46,7 @@ export default{
 }
 </script>
 <style>
+@import '../assets/css/ligth.css';
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

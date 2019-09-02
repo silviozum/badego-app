@@ -38,6 +38,19 @@ async function article(id){
 
     return item
 }
+
+async function tags(tags){
+    let item=[]
+    await firebase.firestore().collection('category').get()
+    .then(doc => {
+       item = doc.docs[0]._document.proto.fields
+    })
+    .catch(err=>{
+      console.log('erros tags', err)
+    })
+    return item
+}
+
 async function related(tags){
   console.log(tags.arrayValue.values[0])
   let item = [];
@@ -49,5 +62,6 @@ async function related(tags){
 export const articleService = {
   list,
   related,
+  tags,
   article
 }

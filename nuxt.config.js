@@ -42,7 +42,8 @@ export default {
     '@/plugins/antd-ui',
     '@/plugins/ckeditor',
     '@/plugins/moment',
-    '@/plugins/social-share'
+    '@/plugins/social-share',
+    '@/plugins/vue-carrousel'
   ],
   /*
   ** Nuxt.js modules

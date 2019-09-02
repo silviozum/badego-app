@@ -45,16 +45,15 @@ export default {
 <style>
 
 .share-article{
-  text-align: right;
   width: 100%;
-
+  padding-top: 6px;
   display: block;
   justify-content: flex-end;
 }
 .share-article i{
-  font-size: 18px;
+  font-size: 14px;
   border-radius: 50px;
-  border: 2px solid #545658;
+  border: 1px solid #414548;
   padding: 5px;
   box-sizing: border-box;
 }

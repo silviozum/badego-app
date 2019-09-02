@@ -101,10 +101,7 @@ export default {
 .header-sidebar div button{
   font-size: 18px;
 }
-.menu{
-  padding: 10px 0 20px 10%;
 
-}
 .login{
   padding-top: 20px;
 }
@@ -116,15 +113,7 @@ export default {
   margin-top: 70px;
   display: block;
 }
-.menu nav li a{color: #fff;}
-.menu nav li,
-.side-link{
-  font-size: 16px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-style: italic;
-  display: block;
-}
+
 .auth{
   padding-left: 10%;
   margin-top: 15%;

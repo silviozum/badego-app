@@ -1,0 +1,54 @@
+.light{
+  background-color: #fff;
+}
+.light .title-site h2,
+.light .title-site h1{
+  color:#282828;
+}
+
+.light .to-release:after{
+  background-image: url('../../static/shadow_white.png');
+}
+
+.light .to-release h2,
+.light .list-articles h3{
+  color:#282828;
+}
+
+.light .share-article i{
+  border-color: #e0e0e0;
+}
+
+.light .home-tags nav li{
+    background-color: #eeeff2;
+    border-color: #dfe0e4;
+    color:#6e6e74;
+}
+
+/*MENU*/
+.light .menu{
+  background-color: #fff;
+  border-color: #e4e4e4;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(207,207,207,.8);
+-moz-box-shadow: 0px 0px 5px 0px rgba(207,207,207,.8);
+box-shadow: 0px 0px 5px 0px rgba(207,207,207,.8);
+
+}
+.light .menu nav{
+    border-color: #e7e7e7;
+}
+.light .menu nav li,
+.light .menu nav li a{
+  color: #282828
+}
+.light .menu:before{
+  background-color: #fff;
+  border-top: 1px solid #e4e4e4;
+  border-left: 1px solid #e4e4e4;
+}
+.light .header-menu{
+  border-color: #e7e7e7;
+}
+.light .header-menu span{
+  color: #282828
+}
