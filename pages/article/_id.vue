@@ -14,7 +14,8 @@
     <div class="content-render-article" v-html="dataPost"></div>
     <div class="footer-post">
 
-  <interactions :id="id" :list="post.like.arrayValue.values" v-if="id"/>
+      <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" />
+
       <SocialShare :item="post" />
     </div>
 
@@ -116,7 +117,7 @@ export default {
 }
 .content-render-article p{
   padding: 0 10px;
-  color: #fff;
+  color: #000;
   font-size: 18px;
 }
 .content-render-article p i{

@@ -65,7 +65,6 @@ export default {
   mounted(){
     const theme =  this.$store.getters['user/getTheme'];
 
-    console.log(theme)
     if(theme === 'dark'){
       this.disabledTheme = false
     }else{

@@ -1,6 +1,6 @@
 
 const state ={
-  theme:'light',
+  theme:'dark',
    user:{
      name:'namme',
      email:'email',

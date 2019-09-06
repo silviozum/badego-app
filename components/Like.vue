@@ -12,7 +12,7 @@
 import { userService } from '../services'
 
 export default {
-  props:['id', 'list'],
+  props:['id','authorId', 'list'],
   data () {
     return {
       listIdLikes: [],
@@ -30,26 +30,32 @@ export default {
   computed:{
     count(){
       return this.listIdLikes.length
+    },
+    user(){
+      return  JSON.parse(localStorage.getItem('user'))
     }
   },
   methods:{
     likeIt(){
 
-      let user = JSON.parse(localStorage.getItem('user'))
-      this.listIdLikes.push(user.uid)
+      this.listIdLikes.push(this.user.uid)
       const setLike = userService.like(this.id, this.listIdLikes)
-      console.log(setLike)
       this.ifLikeIt = true
     }
   },
    mounted(){
-     if(this.list){
+     console.log(this.list)
+     if(this.list.length > 0){
       this.list.forEach(item =>{
         this.listIdLikes.push(item.stringValue)
       })
-      if(this.list.indexOf(this.id) === -1){
+      if(this.listIdLikes.indexOf(this.user.uid) === 1){
         this.showButtonLike = false
+      }else{
+        this.showButtonLike = true
       }
+    }else{
+      console.log('oi')
     }
   }
 
