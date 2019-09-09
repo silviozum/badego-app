@@ -15,7 +15,6 @@
     </div>
   </div>
   <div class="b-carrousel">
-
     <ArticlesNav :article="this.getArticles"/>
   </div>
   </div>
@@ -53,14 +52,11 @@ export default {
     async homeTags(){
       const getTags = await articleService.tags()
       this.tags = getTags
-      console.log(getTags)
-
     }
   },
   computed:{
     item(){
-      console.log(this.getArticles[0] )
-      return this.getArticles[6]
+      return this.getArticles[2]
     }
   },
   components:{

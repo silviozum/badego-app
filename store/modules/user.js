@@ -1,8 +1,8 @@
 
 const state ={
-  theme:'dark',
+  theme:'ligth',
    user:{
-     name:'namme',
+     name:'name',
      email:'email',
      uid:0,
      photo:'defaul',

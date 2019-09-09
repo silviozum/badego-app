@@ -29,7 +29,6 @@ async function auth (email, password) {
   });
 
   return setUser
-
 }
 
 function logout () {
@@ -43,62 +42,57 @@ function logout () {
 }
 
 function publish (data) {
-  firebase.firestore().collection('article').doc().set(data);
+  firebase.firestore().collection("article").doc().set(data)
+.then(function(res) {
+  console.log(res)
+    console.log("Document successfully written!");
+})
+.catch(function(error) {
+    console.error("Error writing document: ", error);
+});
+
+
 }
 
-function like (id, list) {
-  firebase.firestore().collection('article').doc(id).update({
+function edit (id,data) {
+  console.log(data,id)
+  firebase.firestore().collection('article').doc(id).update(data);
+}
+
+async function like (id, list) {
+  const req = await firebase.firestore().collection('article').doc(id).update({
     like: list
   })
+  return req
 }
 
- function uploadImageReleated(file){
-  let urlImageDownload = ''
-  let uploadTask = storage.ref('images/' + file.name).put(file)
-   uploadTask.on(
-  firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-  function(snapshot) {
-      urlImageDownload = uploadTask.snapshot.ref.fullPath
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-      case firebase.storage.TaskState.PAUSED: // or 'paused'
-        console.log('Upload is paused');
-      break;
-      case firebase.storage.TaskState.RUNNING: // or 'running'
-        console.log('Upload is running');
-      break;
-    }
-  },
-  function(error) {
-    // Errors list: https://firebase.google.com/docs/storage/web/handle-errors
-    switch (error.code) {
-      case 'storage/unauthorized':
-        // User doesn't have permission to access the object
-        break;
-
-      case 'storage/canceled':
-        // User canceled the upload
-        break;
-
-      case 'storage/unknown':
-        // Unknown error occurred, inspect error.serverResponse
-        break;
-    }
-  }
-
-);
-  return urlImageDownload
+ async function uploadImageReleated(file){
+  const req =  storage.ref('images/' + file.name).put(file)
+  return req
 }
 
-function getImage(path) {
-  let thisUrl
-  var starsRef = storage.ref(path);
-  starsRef.getDownloadURL().then(function(url) {
-    thisUrl = url
-  });
-  return thisUrl
+async function getImage(path) {
+  const file = await storage.ref(path).getDownloadURL()
+  return file
+}
+
+async function userArticles(id) {
+  let articles = []
+  await firebase.firestore().collection("article").where("author.uid", "==", id)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            articles.push({
+              data: doc.data(),
+              id:doc.id
+            })
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+    return articles
 }
 
 export const userService = {
@@ -106,6 +100,8 @@ export const userService = {
   logout,
   publish,
   like,
+  edit,
   getImage,
-  uploadImageReleated
+  uploadImageReleated,
+  userArticles
 }

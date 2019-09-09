@@ -15,7 +15,7 @@
                <Connect />
         </div>
         <div class="user-preview" v-if="user.logged">
-           <nuxt-link to="/" class="content-user-pic">
+           <nuxt-link :to="'/user/'+user.uid" class="content-user-pic">        
              <img :src="user.photo">
            </nuxt-link>
 
@@ -66,7 +66,7 @@ export default {
       return item
     }
   },
-  beforeCreate() {
+  mounted() {
     this.$store.commit('user/userLogged');
   }
 }

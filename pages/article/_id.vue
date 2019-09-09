@@ -1,8 +1,8 @@
 <template>
   <div class="container content-article" v-if="post">
 
-    <div class="content-image-related">
-      <img :src="post.imgRelated.mapValue.fields.url.stringValue">
+    <div class="content-image-related" v-if="post.imgRelated.stringValue">
+      <img :src="post.imgRelated.stringValue">
     </div>
 
     <div class="header-author">
@@ -13,12 +13,9 @@
     </div>
     <div class="content-render-article" v-html="dataPost"></div>
     <div class="footer-post">
-
       <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" />
-
       <SocialShare :item="post" />
     </div>
-
     <ArticlesList :article="relatedArticles" :where="'article'"/>
     <span class="title-section">O que você acha?</span>
     <div class="content-comments">
@@ -34,6 +31,7 @@ import Comments from '../../components/Comments'
 import SocialShare from '../../components/SocialShare'
 import ArticlesList from '../../components/ArticlesList'
 import Interactions from '../../components/Like'
+import moment from 'moment'
 
 export default {
   data () {
@@ -54,18 +52,22 @@ export default {
   async mounted(){
     const item = await articleService.article(this.$route.params.id)
     if(item){
-
       this.post = item
       this.dataPost = item.editorData.stringValue
       this.author = item.author
       this.title = this.post.title.stringValue
       this.related()
+      this.setAview()
     }
   },
   methods:{
     async related(){
       const published = await articleService.list()
       this.relatedArticles = published
+    },
+    setAview(){
+      let getTime = new Date()
+      localStorage.setItem('lastSeen', moment(getTime).format())
     }
   },
   head () {

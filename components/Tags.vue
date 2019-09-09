@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content-create-tags">
     <template v-for="(tag, index) in tags">
       <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
         <a-tag :key="tag" :closable="index !== 0" :afterClose="() => handleClose(tag)">
@@ -28,18 +28,27 @@
 </template>
 <script>
 export default {
+  props:['alreadyTags'],
   name:'Tags',
   data () {
     return {
-      tags: ['Hot ROLLS', 'ngm liga', 'São Paulo'],
+      tags: [],
       inputVisible: false,
       inputValue: '',
+    }
+  },
+  mounted(){
+    console.log(this.alreadyTags)
+    if(this.alreadyTags, 'oi'){
+
+      this.tags = this.alreadyTags
+    }else{
+        this.tags = ['Hot ROLLS', 'ngm liga', 'São Paulo']
     }
   },
   methods: {
     handleClose (removedTag) {
       const tags = this.tags.filter(tag => tag !== removedTag)
-      console.log(tags)
       this.tags = tags
     },
 
@@ -71,3 +80,35 @@ export default {
   },
 }
 </script>
+<style>
+.content-create-tags{
+    border: 1px solid #50595f;
+    padding: 12px;
+}
+.content-create-tags .ant-tag{
+    font-family: 'Droid Serif', serif !important;
+    border: 1px solid #50595f !important;
+    background: rgb(54,59,63) !important;
+    border-radius: 0;
+    color: #fff;
+    font-size: 14px;
+    height: auto;
+    line-height: auto;
+    padding: 8px 10px;
+}
+.content-create-tags .ant-tag input{
+  font-family: 'Droid Serif', serif !important;
+  border: 1px solid #50595f !important;
+  background: rgb(54,59,63) !important;
+  border-radius: 0;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  line-height: auto;
+  padding: 8px 10px;
+}
+.content-create-tags .ant-tag .anticon{
+  font-size: 14px;
+  color: #fff;
+}
+</style>

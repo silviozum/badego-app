@@ -5,14 +5,21 @@
   <div class="row">
     <carousel class="row__inner" :perPageCustom="[[480, 1],[768, 3], [1024, 4]]" :paginationEnabled="false">
       <slide class="tile" v-for="item in article">
+        <nuxt-link :to="{name: 'article-id', params: { id:item.id } }">
         <div class="tile__media">
-          <img class="tile__img" :src="item.data.imgRelated.mapValue.fields.url.stringValue " alt=""  />
+          <img class="tile__img" :src="item.data.imgRelated.stringValue " alt=""  />
         </div>
         <div class="tile__details">
+          <div class="tile__details_header">
+            <span class="date-release">{{item.data.createdAt.timestampValue| moment("from", "now", true)}}</span>
+            <span class="time-release">6 min de leitura</span>
+          </div>
           <div class="tile__title">
-            Top Gear
+            <h3> {{item.data.title.stringValue}}</h3>
+            <p>{{item.data.textPreview.stringValue}}</p>
           </div>
         </div>
+      </nuxt-link>
       </slide>
     </carousel>
   </div>
@@ -42,10 +49,6 @@ export default {
     downItem(){
       this.activeItem = false
     }
-  },
-  created(){
-    console.log(this.article)
-    console.log(this.activeItemArticle)
   },
   components:{
     Categories,Author,SocialShare,Carousel,Slide
@@ -104,11 +107,35 @@ export default {
   -webkit-transform-origin: center left;
           transform-origin: center left;
 }
+.tile:after{
+  content: '';
+  background-image: linear-gradient(360deg,rgba(37,41,44,.8) 0,transparent 74%,transparent 50%,rgba(37,41,44,.8));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+
+}
 .tile__img {
   width: 290px;
   height: 202px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.tile__details_header{
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.tile__details_header .date-release{
+  margin-right: 8px;
+  font-size: 11px;
+}
+.tile__details_header .time-release{
+  font-size: 11px;
 }
 .tile__details {
   position: absolute;
@@ -117,8 +144,9 @@ export default {
   right: 0;
   top: 0;
   font-size: 10px;
-  opacity: 0;
-
+  opacity: 1;
+  z-index: 100;
+  height:200px;
   transition: 450ms opacity;
 }
 .tile__details:after,
@@ -142,6 +170,14 @@ export default {
   position: absolute;
   bottom: 0;
   padding: 10px;
+  width: 100%;
+  display: block;
+  white-space: normal;
+}
+.tile__title h3{
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
 }
 .row__inner:hover {
   -webkit-transform: translate3d(-52.5px, 0, 0);

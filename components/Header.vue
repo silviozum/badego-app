@@ -7,14 +7,17 @@
   </div>
   <div class="header">
     <div class="open-menu">
+
       <button  v-on:click="openMenu = !openMenu" v-if="user.photo">
         <img :src="user.photo">
       </button>
     </div>
     <div class="menu" v-if="openMenu">
       <div class="header-menu">
+        <nuxt-link :to="'/user/'+user.uid" >
           <img :src="user.photo">
           <span>{{user.name}}</span>
+        </nuxt-link>
       </div>
       <nav>
         <li><nuxt-link to="/">feed </nuxt-link></li>

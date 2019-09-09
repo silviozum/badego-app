@@ -1,12 +1,17 @@
 <template>
   <div class="author">
-    <div class="author-avatar">
-      <img :src="author.mapValue.fields.photo.stringValue">
-    </div>
+
+      <nuxt-link :to="'/user/'+author.mapValue.fields.uid.stringValue" >
+
+        <div class="author-avatar">
+        <img :src="author.mapValue.fields.photo.stringValue">
+      </div>
+    </nuxt-link>
     <div class="author-infos">
       <a href="#">{{author.mapValue.fields.name.stringValue}}</a>
       <span class="date-release">{{dateRelease| moment("from", "now", true)}}</span>
     </div>
+
   </div>
 </template>
 
@@ -56,7 +61,7 @@ export default {
   white-space:
 
 }
-.date-release{
+.date-release, .time-release{
   color: #fff;
   font-size: 13px;
   font-style: normal;

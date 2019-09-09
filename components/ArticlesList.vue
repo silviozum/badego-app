@@ -1,14 +1,13 @@
 <template>
   <div class="articles-list">
-
   <div class="content-article-release">
       <div class="title-site"><h2> trendings</h2></div>
     <div class="article-release" v-for="(item,index) in article" >
-      <div class="list-articles" v-if="index > 4">
+      <div class="list-articles">
         <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="article-width">
         <a-card >
           <div class="content-image-article"
-          :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
+          :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }">
         </div>
         <div class="content-article-infos">
           <div class="article-infos">
@@ -17,7 +16,7 @@
           <!-- <span class="post-minutman">mais lidos</span> -->
           <div class="footer-article-list">
             <!-- <span ><a-icon type="wifi" /></span> -->
-            <span>6 ago</span>
+            <span>{{item.data.createdAt.timestampValue| moment("from", "now", true)}}</span>
             <span>1:44h de discussao</span>
           </div>
         </div>
@@ -41,9 +40,6 @@ export default {
     return {
       loading:true
     }
-  },
-  created(){
-    console.log(this.article)
   },
   components:{
     Categories,Author,SocialShare

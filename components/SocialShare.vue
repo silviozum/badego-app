@@ -36,7 +36,8 @@ export default {
   },
   computed:{
     url(){
-      return window.location
+      // return window.location
+      return 'vai'
     }
   }
 }

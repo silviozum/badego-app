@@ -28,11 +28,10 @@ export default{
     },
     user(){
       let getUser = this.$store.getters['user/getUser'];
-      console.log(getUser.theme)
-      return getUser;
+      return getUser
     },
     theme(){
-      const qs = this.$store.getters['user/getTheme'] 
+      const qs = this.$store.getters['user/getTheme']
       return qs
     }
 
@@ -81,8 +80,12 @@ a:hover{
   margin: 0 auto;
 }
 a, i{
-  color: #282828;
+  color: #fff;
 }
+.ligth a{
+  coor:#282828;
+}
+div{color: #fff}
 .connect{
   max-width: 500px;
   margin: 0 auto;

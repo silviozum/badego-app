@@ -36,15 +36,17 @@ export default {
     }
   },
   methods:{
-    likeIt(){
+    async likeIt(){
 
       this.listIdLikes.push(this.user.uid)
-      const setLike = userService.like(this.id, this.listIdLikes)
+      const setLike = await userService.like(this.id, this.listIdLikes)
+      console.log(setLike)
+      
       this.ifLikeIt = true
     }
   },
    mounted(){
-     console.log(this.list)
+
      if(this.list.length > 0){
       this.list.forEach(item =>{
         this.listIdLikes.push(item.stringValue)
@@ -54,8 +56,6 @@ export default {
       }else{
         this.showButtonLike = true
       }
-    }else{
-      console.log('oi')
     }
   }
 

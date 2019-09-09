@@ -43,7 +43,8 @@ export default {
     '@/plugins/ckeditor',
     '@/plugins/moment',
     '@/plugins/social-share',
-    '@/plugins/vue-carrousel'
+    '@/plugins/vue-carrousel',
+    '@/plugins/analytics'
   ],
   /*
   ** Nuxt.js modules

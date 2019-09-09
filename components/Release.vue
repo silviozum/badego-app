@@ -2,7 +2,7 @@
 <template>
   <div class="content-release">
       <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
-        :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.mapValue.fields.url.stringValue + '\')' }">
+        :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }">
           <h2> {{item.data.title.stringValue}}</h2>
       </nuxt-link>
       <div class="footer-release">
@@ -45,9 +45,9 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-size: 100% 100%;
+  background-size: 102% 102%;
   background-repeat: no-repeat;
-  left: 1px;
+  left: 0px;
 }
 .to-release h2{
   color: #fff;
