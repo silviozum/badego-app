@@ -45,7 +45,7 @@ export default {
     if(articles.length > 0){
       this.articles = articles
     }
-      console.log(this.articles)
+        this.$store.commit('user/openMenuUser', false)
   },
 }
 </script>

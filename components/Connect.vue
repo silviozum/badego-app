@@ -23,7 +23,6 @@ export default {
       }
       this.$store.commit('user/setUser', setUser)
       localStorage.setItem('user', JSON.stringify(setUser))
-      this.$store.commit('menu/menuList', false)
       location.reload();
       }
     }

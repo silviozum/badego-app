@@ -421,6 +421,7 @@ export default {
 .preview-thumb .tile__details,.preview-thumb .tile__img {
   height: 276px;
 }
+.preview-thumb .tile__title p{opacity: 1;}
 .create-preview-inputs{
   margin-right: 30px;
 }

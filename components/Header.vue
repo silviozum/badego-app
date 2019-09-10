@@ -1,18 +1,19 @@
 <template>
   <div>
-  <div class="content-title-site">
-    <div class="title-site">
-      <nuxt-link to="/" class="title-blog"><h1>badego</h1></nuxt-link>
-    </div>
-  </div>
-  <div class="header">
-    <div class="open-menu">
 
-      <button  v-on:click="openMenu = !openMenu" v-if="user.photo">
+  <div class="header">
+    <div class="content-title-site">
+      <div class="title-site">
+        <h1><nuxt-link to="/" class="title-blog">badego</nuxt-link></h1>
+      </div>
+    </div>
+    <div class="content-open-menu" @click="open" v-click-outside="hide">
+    <div class="open-menu">
+      <button  v-if="user.photo">
         <img :src="user.photo">
       </button>
     </div>
-    <div class="menu" v-if="openMenu">
+    <div class="menu" v-if="headerMenu">
       <div class="header-menu">
         <nuxt-link :to="'/user/'+user.uid" >
           <img :src="user.photo">
@@ -20,30 +21,34 @@
         </nuxt-link>
       </div>
       <nav>
-        <li><nuxt-link to="/">feed </nuxt-link></li>
+        <li><nuxt-link v-on:click="hide()" to="/">feed </nuxt-link></li>
         <li><nuxt-link to="/">Publicações</nuxt-link></li>
-        <li class="menu-switch">Modo Escuro <a-switch  @change='onChange'/></li>
+        <li class="menu-switch">
+          Modo Escuro
+          <a-switch  @change='onChange' v-if="disabledTheme"/>
+          <a-switch   @change='onChange' defaultChecked v-else/>
+        </li>
       </nav>
       <nav class="footer-menu">
         <li><nuxt-link to="/">Ajuda </nuxt-link></li>
         <li><nuxt-link to="/">Termos e Condições</nuxt-link></li>
         <li><a  v-on:click="logout()"  >Sair</a></li>
-
       </nav>
     </div>
+  </div>
   </div>
 </div>
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
 import { userService } from '../services'
 export default {
   name: 'Header',
   data () {
     return {
       title: 'Hello World!',
-      openMenu:false,
-      disabledTheme:'',
+      theme:''
     }
   },
   computed:{
@@ -51,10 +56,27 @@ export default {
       const item  = this.$store.getters['user/getUser'];
       return item
     },
+    headerMenu(){
+      const item  = this.$store.getters['user/getMenuState'];
+      return item
+    },
+    disabledTheme(){
+      let boll = false
+
+      if(this.theme === 'dark'){
+        boll = false
+      }else{
+        boll = true
+      }
+      return boll
+    }
   },
   methods:{
     open(){
-      this.$store.commit('menu/menuList', true)
+      this.$store.commit('user/openMenuUser', true)
+    },
+    hide(){
+      this.$store.commit('user/openMenuUser', false)
     },
     onChange(checked){
       this.$store.commit('user/setTheme', checked)
@@ -66,26 +88,17 @@ export default {
     }
   },
   mounted(){
-    const theme =  this.$store.getters['user/getTheme'];
-
-    if(theme === 'dark'){
-      this.disabledTheme = false
-    }else{
-      this.disabledTheme = true
-    }
-
+    this.theme = localStorage.getItem('theme')
+    this.$store.commit('user/defaultTheme', this.theme)
+  },
+  directives: {
+    ClickOutside
   }
 }
 </script>
 
 <style>
-.content-title-site{
-  position: absolute;
-  width: 100%;
-  top: 0;
-  z-index: 20;
-  padding-left: 160px;
-}
+
 .title-site{
   font-size: 42px;
   color: #fff;
@@ -105,7 +118,8 @@ export default {
   padding: 15px 160px;
   position: fixed;
   width: 100%;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   top: 0;
   z-index: 100
 }
@@ -189,9 +203,11 @@ top: 0;
   border-radius: 50px;
 }
 .header-menu{
-  display: flex;
   padding:  22px;
   border-bottom: 1px solid #3c4449;
+}
+.header-menu a{
+  display: flex;
 }
 .header-menu span{
   margin-left: 10px;

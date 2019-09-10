@@ -157,12 +157,10 @@ export default {
   left: 50%;
   display: #000;
 }
-.tile__details:after {
-
+.tile__details:hover .tile__title  p{
+  opacity: 1;
 }
-.tile__details:before {
 
-}
 .tile:hover .tile__details {
   opacity: 1;
 }
@@ -174,6 +172,11 @@ export default {
   display: block;
   white-space: normal;
 }
+.tile__title  p{
+  opacity: 0;
+  transition: 0.3s;
+}
+
 .tile__title h3{
     color: #fff;
     font-weight: bold;

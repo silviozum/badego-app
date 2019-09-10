@@ -1,6 +1,7 @@
 
 const state ={
-  theme:'ligth',
+  theme:'dark',
+  headerMenu: false,
    user:{
      name:'name',
      email:'email',
@@ -13,21 +14,22 @@ const state ={
 
 const mutations = {
   setUser (state, payload) {
-    console.log(state)
     state.user = payload
   },
   setTheme (state, payload) {
-    console.log(payload)
-
-    if(payload === true){
+    if(payload){
       state.theme = 'dark'
+      localStorage.setItem('theme', 'dark')
     }else{
-      state.theme = 'light'
+      state.theme = 'ligth'
+      localStorage.setItem('theme', 'ligth')
     }
-
-    console.log(state.theme )
-
-
+  },
+  openMenuUser(state,payload){
+    state.headerMenu = payload
+  },
+  defaultTheme (state, payload) {
+    state.theme = payload
   },
   userLogged(state){
     var localUser = localStorage.getItem('user')
@@ -42,7 +44,8 @@ const mutations = {
 
 const getters = {
   getUser: state => state.user,
-  getTheme: state => state.theme
+  getTheme: state => state.theme,
+  getMenuState: state => state.headerMenu
 }
 
 export default {

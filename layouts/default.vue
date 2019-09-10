@@ -6,13 +6,12 @@
         <Connect />
       <img src="../static/favicon.gif">
     </div>
-    <Sidebar v-show="menu.openMenu"/>
     <nuxt v-if="user.logged"/>
   </div>
 </template>
 <script>
 import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
+
 import Connect from '../components/Connect'
 export default{
 
@@ -22,10 +21,6 @@ export default{
     }
   },
   computed:{
-    menu(){
-      let item = this.$store.getters['menu/getMenu'];
-      return item;
-    },
     user(){
       let getUser = this.$store.getters['user/getUser'];
       return getUser
@@ -36,9 +31,11 @@ export default{
     }
 
   },
+  mounted() {
+    this.$store.commit('user/userLogged');
+  },
   components:{
     Header,
-    Sidebar,
     Connect
   },
 
@@ -75,11 +72,15 @@ li{
 a:hover{
   color: #de8145;
 }
+a:active,a:focus{
+  text-decoration: none !important;
+}
 .container{
   max-width: 1440px;
   margin: 0 auto;
 }
 a, i{
+  text-decoration: none;
   color: #fff;
 }
 .ligth a{
