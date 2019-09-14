@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div v-if="this.getArticles">
   <div class="home-container">
     <div class="b-release">
       <Release :item="item" v-if="item" />
     </div>
     <div class="b-articles">
-      <ArticlesList :article="this.getArticles" class="list-articles"/>
+      <ArticlesList :article="trendings" class="list-articles"/>
       <div class="home-tags">
         <div class="title-site"><h2>tags</h2></div>
         <nav>
@@ -31,7 +31,6 @@ import ArticlesNav from '../components/ArticlesNav'
 export default {
   data () {
     return {
-      title: 'Hello World!',
       getArticles: '',
       tags:''
     }
@@ -43,20 +42,20 @@ export default {
     }
   },
   methods:{
-    async articlesList(){
-      const published = await articleService.list()
-      if(published.length > 0){
-        this.getArticles = published
-      }
-    },
-    async homeTags(){
-      const getTags = await articleService.tags()
-      this.tags = getTags
-    }
+
   },
   computed:{
     item(){
-      return this.getArticles[2]
+      return this.getArticles[0]
+    },
+    trendings(){
+      const getTrendings = []
+      const list = this.getArticles.forEach(function(item,index){
+        if(index < 4 && index >= 1){ //because index 1 go to release
+          getTrendings.push(item)
+        }
+      })
+      return getTrendings
     }
   },
   components:{
@@ -67,9 +66,13 @@ export default {
     ArticlesNav
   },
 
-  async mounted(){
-    this.articlesList()
-    this.homeTags()
+  async created(){
+      const published = await articleService.list()
+      if(published.length > 0){
+         this.getArticles = published
+      }
+      const getTags = await articleService.tags()
+      this.tags = getTags
   }
 }
 </script>

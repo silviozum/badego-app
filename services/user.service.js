@@ -71,10 +71,16 @@ async function like (id, list) {
   return req
 }
 
+ async function uploadVideoReleated(file){
+   const req =  storage.ref('videos/' + file.name).put(file)
+   return req
+}
+
 async function getImage(path) {
   const file = await storage.ref(path).getDownloadURL()
   return file
 }
+
 
 async function userArticles(id) {
   let articles = []
@@ -103,5 +109,6 @@ export const userService = {
   edit,
   getImage,
   uploadImageReleated,
+  uploadVideoReleated,
   userArticles
 }

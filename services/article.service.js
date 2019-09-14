@@ -11,7 +11,7 @@ var firebaseConfig = {
 };
 async function list(){
 let resultDocs = []
-  await firebase.firestore().collection('article').get()
+  await firebase.firestore().collection('article').orderBy("createdAt").get()
   .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         resultDocs.push({
@@ -23,7 +23,7 @@ let resultDocs = []
     .catch(err => {
       console.log('Error getting document', err);
     });
-    return resultDocs
+    return resultDocs.reverse()
 }
 
 async function article(id){

@@ -2,17 +2,18 @@
   <div class="main-to-post">
   <div class="content-editor">
     <div class="content-editor-header">
-      <span class="header-type">Novo {{titleType}}</span>
+      <span class="header-type">Novo</span>
       <nav>
-        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='artigo', }"
-          v-on:click="navegation('artigo')">Artigo</button></li>
-        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='vídeo', }"
-          v-on:click="navegation('vídeo')">Vídeo</button></li>
+        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='article', }"
+          v-on:click="navegation('article')">Artigo</button></li>
+        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='video', }"
+          v-on:click="navegation('video')">Vídeo</button></li>
         <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='podcast', }"
           v-on:click="navegation('podcast')">Podcast</button></li>
       </nav>
     </div>
     <div class="content-banner-editor"
+
       :style="{ backgroundImage: 'url(\'' + post.imgRelated + '\')' }">
       <Loading v-if="loading"/>
       <form ref="form" >
@@ -27,6 +28,26 @@
         @change="detectFiles($event, 'image')" />
       </form>
     </div>
+
+    <div class="content-video-editor" v-if="post.type==='video'">
+      <Loading v-if="loading"/>
+      <form ref="form" >
+        <input
+        id="files"
+        type="file"
+        class="custom-file-input custom-file-video"
+        name="file"
+        accept="video/*"
+        :multiple="false"
+        @change="detectFiles($event, 'video')" />
+      </form>
+      <div class="content-video-preview" v-if="post.videoRelated">
+        <video controls>
+          <source :src="post.videoRelated" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
     <input type="title" v-model="post.title" class="edit-post-title">
     <ckeditor :editor="editor" v-model="post.editorData" :config="editorConfig"></ckeditor>
     <div class="content-tags">
@@ -78,7 +99,7 @@
       </div>
     </div>
     <div class="content-submit" v-if="toEditOpen">
-      <button v-on:click="edit()">editar</button>
+      <button v-on:click="edit()">salvar</button>
     </div>
     <div class="content-submit" v-else>
         <button v-on:click="submitPost()">salvar</button>
@@ -106,10 +127,11 @@ export default {
           title:'Título da materia preenche o thumb',
           createdAt: new Date(),
           tags:'',
-          type:'artigo',
+          type:'article',
           textPreview: '',
           like:['pora'],
           imgRelated:'',
+          videoRelated:'',
           editorData: '<p>manda ki fião</p>',
       },
       editor: ClassicEditor,
@@ -142,7 +164,6 @@ export default {
       return user
     },
     toEditOpen(){
-      console.log(this.$route.params)
       return this.$route.params.id
     }
 
@@ -157,23 +178,35 @@ export default {
         Array.from(Array(fileList.length).keys()).map(x => {
           if(type === 'image'){
               this.uploadImage(fileList[x])
-          }else if(type === 'podcast'){
-              this.uploadPodcast(fileList[x])
+          }else if(type === 'video'){
+              this.uploadVideo(fileList[x])
           }
         })
     },
-     async uploadImage (file) {
-       this.loading=true
-         const path = await userService.uploadImageReleated(file)
+     async uploadVideo (file) {
+       this.loading = true
+         const path = await userService.uploadVideoReleated(file)
+         console.log(path)
          if(path.ref.fullPath){
-            this.getImage(path.ref.fullPath)
+            this.getVideo(path.ref.fullPath)
          }
-
+    },
+    async uploadImage (file) {
+      this.loading=true
+        const path = await userService.uploadImageReleated(file)
+        if(path.ref.fullPath){
+           this.getImage(path.ref.fullPath)
+        }
     },
     async getImage(path){
       const file = await userService.getImage(path)
-      console.log(file)
       this.post.imgRelated = file
+      this.loading=false
+    },
+    async getVideo(path){
+      const file = await userService.getImage(path)
+      this.post.videoRelated = file
+      console.log(file)
       this.loading=false
     },
 
@@ -224,7 +257,7 @@ export default {
         tags.map(function(i){
           tagsManager.push(i.stringValue)
         })
-        console.log(articleId)
+
         this.post.editorData = articleId.editorData.stringValue
         this.post.imgRelated = articleId.imgRelated.stringValue
         this.post.tags = tagsManager
@@ -275,6 +308,13 @@ export default {
 .content-banner-editor{
   width: 400px;
   height: 276px;
+  display: block;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.content-video-editor{
+  width: 400px;
   display: block;
   background-position: center;
   background-size: cover;
@@ -370,6 +410,13 @@ export default {
 .custom-file-input::-webkit-file-upload-button {
   visibility: hidden;
 }
+.custom-file-video::before {
+  content: 'upload do video' !important;
+}
+.custom-file-video, .custom-file-video:before {
+  max-width: 500px!important;
+}
+
 .custom-file-input::before {
   content: 'imagem em destaque';
   color: #50595f;

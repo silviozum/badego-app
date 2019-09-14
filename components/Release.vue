@@ -2,9 +2,19 @@
 <template>
   <div class="content-release">
       <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
+      v-if="item.data.type.stringValue === 'article'"
         :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }">
           <h2> {{item.data.title.stringValue}}</h2>
       </nuxt-link>
+
+      <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release"
+      v-if="item.data.type.stringValue === 'video'">
+        <video autoplay muted loop width="100%" height="550" class="video-release">
+          <source :src="item.data.videoRelated.stringValue" type="video/mp4">
+        </video>
+          <h2> {{item.data.title.stringValue}}</h2>
+      </nuxt-link>
+
       <div class="footer-release">
         <div class="left-footer-release">
           <Author :author="item.data.author" :dateRelease="item.data.createdAt.timestampValue"/>
@@ -62,6 +72,9 @@ export default {
   z-index: 99;
   margin: 0;
   padding: 0 40px;
+}
+.video-release{
+  position: absolute;
 }
 .footer-release{
   display: flex;

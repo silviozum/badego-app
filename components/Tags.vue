@@ -38,9 +38,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.alreadyTags)
-    if(this.alreadyTags, 'oi'){
-
+    if(this.alreadyTags){
       this.tags = this.alreadyTags
     }else{
         this.tags = ['Hot ROLLS', 'ngm liga', 'São Paulo']
