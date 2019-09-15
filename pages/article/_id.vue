@@ -1,22 +1,22 @@
 <template>
   <div class="container content-article" v-if="post">
-
-    <div class="content-image-related" v-if="post.imgRelated.stringValue">
-      <img :src="post.imgRelated.stringValue">
-    </div>
-
-    <div class="header-author">
-      <Author :author="author" v-if="!!author" :dateRelease="post.createdAt.timestampValue"/>
+    <div class="content-image-related" v-if="post.imgRelated.stringValue"
+      :style="{ backgroundImage: 'url(\'' + post.imgRelated.stringValue + '\')' }">
     </div>
     <div class="content-title">
       <h1>{{post.title.stringValue}}</h1>
     </div>
+    <div class="content-header-author">
+      <div class="header-author">
+        <Author :author="author" v-if="!!author" :dateRelease="post.createdAt.timestampValue"/>
+          <SocialShare :item="post" />
+      </div>
+    </div>
     <div class="content-render-article" v-html="dataPost"></div>
     <div class="footer-post">
       <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" />
-      <SocialShare :item="post" />
     </div>
-    <ArticlesList :article="relatedArticles" :where="'article'"/>
+    <ArticlesNav :article="relatedArticles"/>
     <span class="title-section">O que você acha?</span>
     <div class="content-comments">
       <Comments :id="id"/>
@@ -29,7 +29,7 @@ import { articleService } from '../../services'
 import Author from '../../components/Author'
 import Comments from '../../components/Comments'
 import SocialShare from '../../components/SocialShare'
-import ArticlesList from '../../components/ArticlesList'
+import ArticlesNav from '../../components/ArticlesNav'
 import Interactions from '../../components/Like'
 import moment from 'moment'
 
@@ -43,7 +43,7 @@ export default {
     }
   },
 
-  components:{Author, Comments, SocialShare, ArticlesList,Interactions},
+  components:{Author, Comments, SocialShare, ArticlesNav,Interactions},
   computed:{
     id(){
       return this.$route.params.id
@@ -79,54 +79,165 @@ export default {
 </script>
 
 <style>
+.content-header-author{
+  max-width:80%;
+  margin: 0 auto;
+}
+.content-header-author .share-article{text-align: right;}
 .header-author{
   display: flex;
   justify-content: space-between;
-  margin: 15px 0;
+  margin:0 auto;
+  margin-bottom: 40px;
+}
+.header-author .author{
+  padding-left: 0;
 }
 .footer-post{
   display: block;
   margin: 60px 0;
 }
 .content-article{
-  padding: 20px;
-  max-width: 1336px;
+  max-width: 1980px;
   margin: 0 auto;
-  padding-top: 45px;
   color: #fff;
   padding-bottom: 65px;
 }
-.interactions{
-  float: left;
-    padding-left: 12px;
-    padding-top: 10px;
-}
+
 .content-title{
-  margin: 20px 0;
-  padding: 0 10px;
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
 }
 .content-title h1{
   font-weight: bold;
   color: #fff;
+  font-size: 44px;
+  line-height: 62px;
+}
+.content-image-related{
+  height: calc(100vh );
+  background-size: cover;
+  background-position: center;
+
 }
 .content-image-related img{
   max-width: 100%;
   margin: 0 auto;
   display: block;
 }
+.content-render-article{
+  max-width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
 .content-render-article img{
   width: 100%;
 }
+.content-render-article ul li{
+display: list-item;
+list-style: disc;
+}
+.content-render-article blockquote{
+  border-left: 2px solid #fff;
+  max-width: 67%;
+  margin: 0 auto;
+}
+.content-render-article blockquote p{
+  padding: 0;
+  max-width: 90%;
+  font-style: italic;
+}
+.content-render-article ul,
+.content-render-article ol{
+  text-align: left;
+  max-width: 67%;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 20px;
+  list-style-type: disc;
+  line-height: 36px;
+  padding-inline-start:40px;
+}
+
+
+.content-render-article ol{
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+.content-render-article ol li{
+  counter-increment: my-awesome-counter;
+}
+.content-render-article ol li::before {
+  content: counter(my-awesome-counter) ".";
+  color: #93999d;
+  margin-right: 6px;
+  margin-left: -22px;
+}
+.content-render-article table td{
+  border:1px solid #93999d;
+  padding: 10px;
+}
+.content-render-article table{
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 30px 0;
+  display: block;
+  border-color: #93999d;
+}
+.content-render-article h2{
+  font-size: 34px;
+}
+.content-render-article h3{
+  font-size: 27px;
+}
+.content-render-article a{
+  color: #de8145
+}
+.content-render-article a:hover{
+  text-decoration: underline;
+  color: #ca601c;
+}
+.content-render-article a:focus{
+  text-decoration:none;
+}
+.content-render-article h4{
+  font-size: 23px;
+}
+.content-render-article h2, h3, h4{
+  max-width: 67%;
+  margin: 0 auto;
+  margin-top: 30px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.content-render-article .image-style-align-left{
+  max-width: 40%;
+  margin: 0 auto;
+}
+.content-render-article .image-style-align-right{
+  max-width: 70%;
+  margin: 0 auto;
+}
 .content-render-article p{
-  padding: 0 10px;
-  color: #000;
-  font-size: 18px;
+  color: #fff;
+  font-size: 20px;
+  line-height: 36px;
+  max-width: 67%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  text-align: left;
 }
 .content-render-article p i{
   color: #fff;
 }
 .content-render-article p a{
-  color: #fff;
+  color: #de8145;
 }
 .title-to-comments{
   display: block;

@@ -139,7 +139,13 @@ export default {
         height: '500px',
         image: {
             // You need to configure the image toolbar, too, so it uses the new style buttons.
-            toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight', 'imageUpload' ],
+            toolbar: [
+              'imageTextAlternative', '|',
+              'imageStyle:alignLeft',
+              'imageStyle:full',
+              'imageStyle:alignRight',
+              'imageUpload'
+            ],
             styles: [
                 // This option is equal to a situation where no style is applied.
                 'full',
@@ -251,16 +257,16 @@ export default {
     if(this.$route.params.id){
       const articleId =  await articleService.article(this.$route.params.id)
       if(articleId){
-        let tags = articleId.tags.arrayValue.values
-        let tagsManager = []
-
-        tags.map(function(i){
-          tagsManager.push(i.stringValue)
-        })
+        // let tags = articleId.tags.arrayValue.values
+        // let tagsManager = []
+        //
+        // tags.map(function(i){
+        //   tagsManager.push(i.stringValue)
+        // })
 
         this.post.editorData = articleId.editorData.stringValue
         this.post.imgRelated = articleId.imgRelated.stringValue
-        this.post.tags = tagsManager
+        // this.post.tags = tagsManager
         this.post.title = articleId.title.stringValue
         this.post.type = articleId.type.stringValue
         this.post.textPreview = articleId.textPreview.stringValue

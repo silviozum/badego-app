@@ -44,7 +44,7 @@ export default {
   background-repeat: no-repeat;
   display: inline-block;
   width: 100%;
-  height: 550px;
+  height: calc(100vh - 20px);
   position: relative;
   background-position: center;
 }
