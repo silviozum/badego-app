@@ -1,27 +1,27 @@
 <template>
-
-  <div class="share-article">
-
+<div class="content-social-share">
+  <button  class="like-button share-button" v-on:click="openShare = !openShare">
+    <i class="zwicon-share"></i>
+  </button>
+  <div class="share-article" v-if="openShare">
     <social-sharing
-              :url="url"
-               :title="item.title.stringValue"
-               quote="Para ninguem"
-               twitter-user="badeguinho"
-               inline-template>
-               <div>
+      :url="url"
+       :title="item.title.stringValue"
+       quote="Para ninguem"
+       twitter-user="badeguinho"
+       inline-template>
+  <div>
     <network network="twitter">
       <a-icon type="twitter" class="twitter-icon"/>
     </network>
     <network network="facebook">
     <a-icon type="facebook" class="facebook-icon"/>
-
     </network>
-
   </div>
 
     </social-sharing>
   </div>
-
+</div>
 </template>
 
 <script>
@@ -31,7 +31,8 @@ export default {
   props:['item'],
   data () {
     return {
-      loading:true
+      loading:true,
+      openShare:false
     }
   },
   computed:{
@@ -44,12 +45,16 @@ export default {
 </script>
 
 <style>
-
+.content-social-share{
+  padding-top:10px;
+  position: relative;
+}
 .share-article{
-  width: 100%;
   padding-top: 6px;
   display: block;
-  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: -50px;
 }
 .share-article i{
   font-size: 14px;
@@ -170,7 +175,9 @@ i.pinterest-icon{
 i.tumblr-icon{
     background-position:
 } */
-
+.share-button i{
+  font-size: 20px!important;
+}
 
 
 </style>

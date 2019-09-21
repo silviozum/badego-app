@@ -43,20 +43,25 @@ function logout () {
 
 function publish (data) {
   firebase.firestore().collection("article").doc().set(data)
-.then(function(res) {
-  console.log(res)
-    console.log("Document successfully written!");
-})
-.catch(function(error) {
-    console.error("Error writing document: ", error);
-});
-
-
+  .then(function(res) {
+    console.log(res)
+      console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
 }
 
 function edit (id,data) {
-  console.log(data,id)
   firebase.firestore().collection('article').doc(id).update(data);
+}
+
+function deleteArticle(id){
+    firebase.firestore().collection('article').doc(id).delete().then(function() {
+      return 'ok'
+    }).catch(function(error) {
+      return error;
+    });
 }
 
 async function like (id, list) {
@@ -107,6 +112,7 @@ export const userService = {
   publish,
   like,
   edit,
+  deleteArticle,
   getImage,
   uploadImageReleated,
   uploadVideoReleated,

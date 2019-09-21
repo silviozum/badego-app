@@ -240,4 +240,10 @@ top: 0;
   justify-content: space-between;
   display: flex !important;
 }
+@media screen and(max-width:920px){
+  .header{
+    bottom: 0;
+    top: auto;
+  }
+}
 </style>

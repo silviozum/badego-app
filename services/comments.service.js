@@ -18,6 +18,7 @@ async function submitComment(headTalk,author,articleId){
     author: author,
     article_id: articleId,
     inside_talk:{},
+    like:['pora'],
     createdAt: moment().format('ll')
   }
   await firebase.firestore().collection('comments').add(data)
@@ -50,11 +51,15 @@ async function getComments(articleId){
         console.log("Error getting documents: ", error);
     });
 
-return comment
-
+    return comment
+}
+async function likeComment(list,commentId){
+  const req = await firebase.firestore().collection('comments').doc(commentId).update({like:list})
+  return req
 }
 
 export const commentsService = {
   submitComment,
+  likeComment,
   getComments
 }

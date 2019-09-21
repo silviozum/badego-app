@@ -9,18 +9,22 @@
     <div class="content-header-author">
       <div class="header-author">
         <Author :author="author" v-if="!!author" :dateRelease="post.createdAt.timestampValue"/>
+        <div class="article-interactions">
+          <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" />
           <SocialShare :item="post" />
+        </div>
       </div>
     </div>
     <div class="content-render-article" v-html="dataPost"></div>
     <div class="footer-post">
-      <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" />
+      <!-- <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" /> -->
+    </div>
+    <div class="content-comments">
+      <span class="content-title-comments">O que você acha?</span>
+      <!-- <Comments :id="id"/> -->
     </div>
     <ArticlesNav :article="relatedArticles"/>
-    <span class="title-section">O que você acha?</span>
-    <div class="content-comments">
-      <Comments :id="id"/>
-    </div>
+
   </div>
 </template>
 
@@ -206,7 +210,9 @@ list-style: disc;
 .content-render-article h4{
   font-size: 23px;
 }
-.content-render-article h2, h3, h4{
+.content-render-article h2,
+.content-render-article h3,
+.content-render-article  h4{
   max-width: 67%;
   margin: 0 auto;
   margin-top: 30px;
@@ -247,8 +253,21 @@ list-style: disc;
   font-size: 30px;
 }
 .content-comments{
-  max-width: 90%;
+  max-width: 1200px;
+  margin-top: 50px;
   margin: 0 auto;
+}
+.content-title-comments{
+  font-size: 38px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: block;
+}
+.article-interactions{
+  display: flex;
+}
+.article-interactions .like-button i{
+  margin-right: 10px;
 }
 
 </style>

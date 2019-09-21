@@ -43,6 +43,7 @@ export default{
 </script>
 <style>
 @import '../assets/css/ligth.css';
+@import '../assets/css/zwicon.css';
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

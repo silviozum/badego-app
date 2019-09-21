@@ -9,7 +9,9 @@
       <div class="home-tags">
         <div class="title-site"><h2>tags</h2></div>
         <nav>
-          <li v-for="(value,name) in tags">{{name}}</li>
+          <li v-for="(item,key,index) in tags">
+            <nuxt-link :to="{name: 'article-tags-id', params: { id:key } }">{{key}} <span>({{item}})</span></nuxt-link>
+          </li>
         </nav>
       </div>
     </div>
@@ -73,6 +75,36 @@ export default {
       }
       const getTags = await articleService.tags()
       this.tags = getTags
+      let come = this.getArticles.map(function(item){
+        return item.data.tags
+      })
+      this.tags = come.filter(function(item){
+          return item.arrayValue
+      })
+      let auxTag = []
+      come = this.tags.map(function(item){
+        item.arrayValue.values.filter(function(i){
+          auxTag.push(i.stringValue)
+        })
+      })
+      auxTag = Object.assign({},[auxTag])
+    
+      const getSumTags = obj => {
+          const arrayOfTags = Object.values(obj);
+          return arrayOfTags.reduce(
+              (acc, tags) => {
+                  tags.forEach(tag => {
+                      if (!acc.hasOwnProperty(tag)) {
+                          acc[tag] = 0
+                      }
+                      acc[tag] += 1
+                  })
+                  return acc
+              },
+              {}
+          );
+      };
+    this.tags = getSumTags(auxTag)
   }
 }
 </script>
@@ -109,6 +141,9 @@ export default {
   margin: 5px;
   display: inline-block;
 }
+.home-tags nav li span{
+  font-size: 10px;
+}
 
 @media screen and (max-width: 920px){
   .b-articles{
@@ -122,6 +157,5 @@ export default {
   .home-container{
     display: block;
   }
-
 }
 </style>

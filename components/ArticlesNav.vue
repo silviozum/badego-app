@@ -157,6 +157,7 @@ export default {
   left: 50%;
   display: #000;
 }
+.tile__title  p{margin-bottom: 0;}
 .tile__details:hover .tile__title  p{
   opacity: 1;
 }

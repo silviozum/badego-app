@@ -58,10 +58,25 @@ async function related(tags){
   console.log(query)
     return item
 }
+ async function articleTag(name){
+  let item = []
+  await firebase.firestore().collection('article').where("tags", "array-contains", name)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            item.push({data:doc._document.proto.fields})
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    return item
+}
 
 export const articleService = {
   list,
   related,
   tags,
+  articleTag,
   article
 }

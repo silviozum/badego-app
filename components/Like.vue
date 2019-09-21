@@ -1,9 +1,9 @@
 <template>
   <div>
-  <div class="interactions" v-if="showButtonLike ">
-
-    <a-button v-if="!ifLikeIt" ghost icon="like"  v-on:click="likeIt()"/>
-    <span v-if="ifLikeIt"> show!!</span>
+  <div class="interactions">
+    <button  class="like-button"  v-on:click="likeIt()" :class="{'already-like':ifLikeIt }" :disabled="ifLikeIt" >
+      <i class="zwicon-thumbs-up"></i>
+    </button>
   </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       this.listIdLikes.push(this.user.uid)
       const setLike = await userService.like(this.id, this.listIdLikes)
       console.log(setLike)
-      
+
       this.ifLikeIt = true
     }
   },
@@ -53,6 +53,7 @@ export default {
       })
       if(this.listIdLikes.indexOf(this.user.uid) === 1){
         this.showButtonLike = false
+        this.ifLikeIt = true
       }else{
         this.showButtonLike = true
       }
@@ -64,10 +65,17 @@ export default {
 
 <style>
 
-.interactions{
-  float: left;
-    padding-left: 12px;
-    padding-top: 10px;
+
+.like-button{
+  border:none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.like-button i{
+  font-size: 40px;
+}
+.like-button:hover i, .already-like i{
+  color:#de8145 !important;
 }
 
 

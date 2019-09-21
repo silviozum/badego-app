@@ -3,6 +3,11 @@
   <div class="comments" v-if="comments">
     <a-comment v-for="(item,index) in comments" :key="index">
       <span class="date-comment" slot="actions">{{item.data.createdAt | moment("from", "now", true)}}</span>
+      <button slot="actions" class="like-button" v-on:click="likeComment(item.data.like,item.id)">
+        <i class="zwicon-thumbs-up">
+        </i>
+      </button>
+      <span slot="actions" class="count-likes">{{item.data.like.length -1}}</span>
       <a slot="author">{{item.data.author.name}}</a>
       <a-avatar
         slot="avatar"
@@ -74,15 +79,28 @@ export default {
           this.value = ''
         }, 1000)
       }
-
     },
     handleChange(e) {
       this.value = e.target.value
+    },
+    async likeComment(list,commentId){
+      list.push(this.user.uid)
+      const like = await commentsService.likeComment(list, commentId)
+      console.log(list)
     }
   },
   async mounted(){
     const getComments = await commentsService.getComments(this.$route.params.id)
     this.comments = getComments
+
+    const getLikes = []
+    this.comments.map(function(item){
+      getLikes.push(item.data.like)
+    })
+
+    if (getLikes.indexOf(this.user.uid) > -1){
+      console.log('ja tem like')
+    }
   }
 }
 </script>
@@ -131,4 +149,11 @@ export default {
 .btn-submit-comments:hover{
   color: #de8145 !important
 }
+
+.ant-comment-actions > li > .count-likes{
+  color: #fff;
+  cursor: inherit;
+}
+
+.ant-comment-actions > li > .count-likes:hover{color: #fff;}
 </style>
