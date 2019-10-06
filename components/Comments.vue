@@ -3,7 +3,12 @@
   <div class="comments" v-if="comments">
     <a-comment v-for="(item,index) in comments" :key="index">
       <span class="date-comment" slot="actions">{{item.data.createdAt | moment("from", "now", true)}}</span>
-      <button slot="actions" class="like-button" v-on:click="likeComment(item.data.like,item.id)">
+      <button
+        slot="actions"
+        class="like-button"
+        :class="{'already-like':item.data.alreadyLike }"
+        :disabled="item.alreadyLike"
+        v-on:click="likeComment(item.data.like,item.id)">
         <i class="zwicon-thumbs-up">
         </i>
       </button>
@@ -86,7 +91,6 @@ export default {
     async likeComment(list,commentId){
       list.push(this.user.uid)
       const like = await commentsService.likeComment(list, commentId)
-      console.log(list)
     }
   },
   async mounted(){
@@ -94,13 +98,20 @@ export default {
     this.comments = getComments
 
     const getLikes = []
+    const userId = this.user.uid
     this.comments.map(function(item){
       getLikes.push(item.data.like)
+
+      console.log(item.data.like.indexOf(userId))
+
+      if(getLikes.indexOf(userId) < 1){
+        item.data.alreadyLike = true
+      }else{
+        item.data.alreadyLike = false
+      }
     })
 
-    if (getLikes.indexOf(this.user.uid) > -1){
-      console.log('ja tem like')
-    }
+    console.log(this.comments)
   }
 }
 </script>

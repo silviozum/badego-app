@@ -44,6 +44,7 @@ export default{
 <style>
 @import '../assets/css/ligth.css';
 @import '../assets/css/zwicon.css';
+@import '../assets/css/animated.css';
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -85,7 +86,7 @@ a, i{
   color: #fff;
 }
 .ligth a{
-  coor:#282828;
+  color:#282828;
 }
 div{color: #fff}
 .connect{
@@ -102,6 +103,10 @@ div{color: #fff}
 .connect img{
   width: 100%;
   margin-top: 20px;
+}
+button,button:active{
+  outline: none;
+
 }
 
 </style>

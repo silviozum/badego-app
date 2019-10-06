@@ -1,7 +1,7 @@
 <template>
   <div>
   <div class="interactions">
-    <button  class="like-button"  v-on:click="likeIt()" :class="{'already-like':ifLikeIt }" :disabled="ifLikeIt" >
+    <button  class="like-button"  v-on:click="likeIt()" :class="{'already-like':ifLikeIt }" :disabled="ifLikeIt">
       <i class="zwicon-thumbs-up"></i>
     </button>
   </div>

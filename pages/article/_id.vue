@@ -16,12 +16,10 @@
       </div>
     </div>
     <div class="content-render-article" v-html="dataPost"></div>
-    <div class="footer-post">
-      <!-- <interactions :id="id"  :list="post.like.arrayValue.values" v-if="post.like" /> -->
-    </div>
+
     <div class="content-comments">
       <span class="content-title-comments">O que você acha?</span>
-      <!-- <Comments :id="id"/> -->
+      <Comments :id="id"/>
     </div>
     <ArticlesNav :article="relatedArticles"/>
 
@@ -97,10 +95,7 @@ export default {
 .header-author .author{
   padding-left: 0;
 }
-.footer-post{
-  display: block;
-  margin: 60px 0;
-}
+
 .content-article{
   max-width: 1980px;
   margin: 0 auto;

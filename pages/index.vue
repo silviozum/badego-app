@@ -2,10 +2,9 @@
   <div v-if="this.getArticles">
   <div class="home-container">
     <div class="b-release">
-      <Release :item="item" v-if="item" />
+      <Release :trendings="trendings" />
     </div>
     <div class="b-articles">
-      <ArticlesList :article="trendings" class="list-articles"/>
       <div class="home-tags">
         <div class="title-site"><h2>tags</h2></div>
         <nav>
@@ -14,6 +13,7 @@
           </li>
         </nav>
       </div>
+      <ArticlesList :article="trendings" class="list-articles"/>
     </div>
   </div>
   <div class="b-carrousel">
@@ -53,7 +53,7 @@ export default {
     trendings(){
       const getTrendings = []
       const list = this.getArticles.forEach(function(item,index){
-        if(index < 4 && index >= 1){ //because index 1 go to release
+        if(index < 4){ //because index 1 go to release
           getTrendings.push(item)
         }
       })
@@ -88,7 +88,7 @@ export default {
         })
       })
       auxTag = Object.assign({},[auxTag])
-    
+
       const getSumTags = obj => {
           const arrayOfTags = Object.values(obj);
           return arrayOfTags.reduce(
@@ -114,20 +114,18 @@ export default {
   border: none !important;
 }
 .home-container{
-  display: flex;
   width: 100%;
-  height: auto;
 }
 .b-carrousel .title-site{
   padding-left: 40px;
 }
 .b-release{
-  width: 65%;
+  width: 100%;
   display: block;
 }
 
 .b-articles{
-  width: 32%;
+  width: 100%;
   display: block;
 }
 

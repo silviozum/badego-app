@@ -7,7 +7,7 @@
 }
 
 .ligth .to-release:after{
-  background-image: url('../../static/shadow_white.png');
+  background-image: url('../../static/mask_banner_white.png');
 }
 
 .ligth .to-release h2,

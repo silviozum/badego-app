@@ -132,6 +132,7 @@ export default {
 .title-blog{
   font-weight: 600;
   font-size: 20px;
+  text-shadow: 0px 0px 60px #25292c;
 }
 .open-menu button{
   font-size: 18px;
