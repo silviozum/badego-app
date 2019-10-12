@@ -2,34 +2,38 @@
 <template>
   <div class="content-release">
     <div v-for="(item, index) in trendings" v-if="index === slide" >
-      <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release animated fast fadeIn"
+      <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release animated fast"
       v-if="item.data.type.stringValue === 'article'"
-        :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }">
-          <h2> {{item.data.title.stringValue}}</h2>
+        :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }"
+        :class="{'fadeIn': fadeOut === 5}">
+
       </nuxt-link>
 
       <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release content-video-release"
-      v-if="item.data.type.stringValue === 'video'">
+        v-if="item.data.type.stringValue === 'video'">
         <video autoplay muted loop class="video-release">
           <source :src="item.data.videoRelated.stringValue" type="video/mp4">
         </video>
-          <h2> {{item.data.title.stringValue}}</h2>
       </nuxt-link>
-
-      <div class="footer-release">
+      <!-- <div class="footer-release">
         <div class="left-footer-release">
           <Author :author="item.data.author" :dateRelease="item.data.createdAt.timestampValue"/>
         </div>
         <SocialShare :item="item.data" />
+      </div> -->
+      <div class="release-info">
+        <div class="title-post">
+          <h2> {{item.data.title.stringValue}}</h2>
+        </div>
       </div>
     </div>
-    <div class="nav-authors">
+    <div class="nav-authors" v-if="trendings">
       <nav>
         <li v-for="(item, index) in trendings"
-        v-on:click="slide = index"
+        v-on:click="slide = index; fadeOut = true"
         :class="{'slide-selected': index === slide}">
           <img :src="item.data.author.mapValue.fields.photo.stringValue">
-          <div>
+          <div class="animated fast fadeIn">
             <span>{{item.data.author.mapValue.fields.name.stringValue}}</span>
             <p class="date-release">{{item.data.createdAt.timestampValue| moment("from", "now", true)}}</p>
           </div>
@@ -50,8 +54,19 @@ export default {
   props:['trendings'],
   data(){
     return {
-      slide:0
+      slide:0,
+      fadeOut:false
     }
+  },
+
+  mounted(){
+      this.intervalid1 = setInterval(function(){
+          if(this.slide+2  > this.trendings.length){
+            this.slide = 0
+          }else{
+            this.slide = this.slide + 1
+          }
+      }.bind(this), 10000);
   },
   components:{ArticlesList, Author, SocialShare},
 
@@ -59,6 +74,10 @@ export default {
 </script>
 
 <style>
+.content-release{
+  position: relative;
+  margin-bottom: 40px;
+}
 .to-release{
   background-size: cover;
   background-repeat: no-repeat;
@@ -79,19 +98,28 @@ export default {
   height: 100%;
   left: 0px;
 }
-.to-release h2{
-  color: #fff;
+.release-info{
   position: absolute;
-  bottom: 0;
-  font-size: 40px;
+  bottom: 40px;
+}
+.title-post{
+  display: flex;
   line-height: 51px;
+  height: 50px;
+  align-items: center;
+  padding-top: 10px;
+  padding-left: 3%;
+  width: 100%;
+}
+.title-post h2{
+  color: #fff;
+  font-size: 40px;
   text-shadow: 2px 2px #0000;
   font-weight: bold;
   letter-spacing: -0.05em !important;
-  /* text-shadow: 0px 0px 20px #393c2e; */
   z-index: 99;
   margin: 0;
-  padding: 0 40px;
+  width: 100%;
 }
 .content-video-release{
   overflow: hidden;
@@ -115,11 +143,18 @@ export default {
 }
 .nav-authors{
   position: absolute;
-  bottom:200px;
-  left: 40px;
+  bottom:110px;
+  white-space: nowrap;
+  padding-left: 3%;
+  width: 100%;
+  overflow-x: auto;
+}
+.nav-authors::-webkit-scrollbar {
+    display: none;
 }
 .nav-authors li {
-  width:170px;
+  width:49px;
+  overflow: hidden;
   cursor: pointer;
   padding: 5px;
   background-color: #fff;
@@ -132,6 +167,9 @@ export default {
 }
 .slide-selected{
   opacity: 1 !important;
+  width: 170px !important;
+  -webkit-transition: width .2s;
+  transition: width .2s;
 }
 .nav-authors li:hover{
   opacity: 1;
@@ -161,10 +199,21 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@media screen and (max-width: 480px){
-  .to-release h2{
+@media screen and (max-width: 980px){
+  .title-post{
+    height: auto;
+  }
+  .title-post h2{
     font-size: 30px;
     line-height: 42px;
   }
+  .nav-authors{
+    bottom: -30px;
+  }
+  .nav-authors li {
+    bottom: -30px;
+  }
+
 }
+
 </style>

@@ -15,12 +15,13 @@
         </div>
       </div>
     </div>
+
     <div class="content-render-article" v-html="dataPost"></div>
 
     <div class="content-comments">
-      <span class="content-title-comments">O que você acha?</span>
       <Comments :id="id"/>
     </div>
+
     <ArticlesNav :article="relatedArticles"/>
 
   </div>
@@ -105,10 +106,10 @@ export default {
 
 .content-title{
   margin: 0 auto;
-  max-width: 1200px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  width: 100%;
+  margin: 20px 0;
   text-align: center;
+  padding:0 3%;
 }
 .content-title h1{
   font-weight: bold;
@@ -117,7 +118,7 @@ export default {
   line-height: 62px;
 }
 .content-image-related{
-  height: calc(100vh );
+  height: calc(100vh - 80px);
   background-size: cover;
   background-position: center;
 
@@ -248,9 +249,9 @@ list-style: disc;
   font-size: 30px;
 }
 .content-comments{
-  max-width: 1200px;
   margin-top: 50px;
   margin: 0 auto;
+  width: 80%;
 }
 .content-title-comments{
   font-size: 38px;
@@ -264,5 +265,27 @@ list-style: disc;
 .article-interactions .like-button i{
   margin-right: 10px;
 }
-
+@media screen and (max-width: 980px){
+  .content-render-article{
+    max-width: 100%;
+  }
+  .content-render-article p{
+    max-width: 90%;
+    font-size: 18px;
+    line-height: 36px;
+  }
+  .content-title h1{
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .content-title-comments{
+    font-size: 20px;
+  }
+  .content-comments .like-button i{
+    font-size: 26px;
+  }
+  .content-comments{
+    width: 100%;
+  }
+}
 </style>

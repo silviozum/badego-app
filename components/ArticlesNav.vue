@@ -78,7 +78,7 @@ export default {
 .row {
   overflow: hidden;
   width: 100%;
-  padding:  0 40px;
+  padding-left: 3%;
 }
 .row__inner .VueCarousel-slide{
   flex-basis: auto;

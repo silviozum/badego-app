@@ -1,5 +1,6 @@
 <template>
   <div :class="theme">
+    <Navegate/>
     <Header v-if="user.logged"/>
     <div class="connect" v-if="!user.logged">
       <span class="title-blog">badego</span>
@@ -11,7 +12,7 @@
 </template>
 <script>
 import Header from '../components/Header'
-
+import Navegate from '../components/Navegate'
 import Connect from '../components/Connect'
 export default{
 
@@ -36,7 +37,8 @@ export default{
   },
   components:{
     Header,
-    Connect
+    Connect,
+    Navegate
   },
 
 }

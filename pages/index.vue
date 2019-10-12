@@ -1,24 +1,23 @@
 <template>
-  <div v-if="this.getArticles">
-  <div class="home-container">
-    <div class="b-release">
-      <Release :trendings="trendings" />
-    </div>
-    <div class="b-articles">
-      <div class="home-tags">
-        <div class="title-site"><h2>tags</h2></div>
-        <nav>
-          <li v-for="(item,key,index) in tags">
-            <nuxt-link :to="{name: 'article-tags-id', params: { id:key } }">{{key}} <span>({{item}})</span></nuxt-link>
-          </li>
-        </nav>
+  <div>
+      <div class="home-container" v-if="this.getArticles">
+        <div class="b-release">
+          <Release :trendings="trendings" />
+        </div>
+        <div class="b-articles">
+          <div class="home-tags">
+            <nav>
+              <li v-for="(item,key,index) in tags">
+                <nuxt-link :to="{name: 'article-tags-id', params: { id:key } }">{{key}} <span>({{item}})</span></nuxt-link>
+              </li>
+            </nav>
+          </div>
+        </div>
       </div>
-      <ArticlesList :article="trendings" class="list-articles"/>
+      <div class="b-carrousel" v-if="this.getArticles">
+        <ArticlesNav :article="this.getArticles"/>
+      </div>
     </div>
-  </div>
-  <div class="b-carrousel">
-    <ArticlesNav :article="this.getArticles"/>
-  </div>
   </div>
 </template>
 
@@ -29,6 +28,8 @@ import Author from '../components/Author'
 import SocialShare from '../components/SocialShare'
 import Release from '../components/Release'
 import ArticlesNav from '../components/ArticlesNav'
+
+
 
 export default {
   data () {
@@ -117,7 +118,7 @@ export default {
   width: 100%;
 }
 .b-carrousel .title-site{
-  padding-left: 40px;
+  padding-left: 3%;
 }
 .b-release{
   width: 100%;
@@ -136,7 +137,8 @@ export default {
   border-radius: 2px;
   font-size: 14px;
   color: #fff;
-  margin: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   display: inline-block;
 }
 .home-tags nav li span{
@@ -146,11 +148,19 @@ export default {
 @media screen and (max-width: 920px){
   .b-articles{
     width: 100%;
-    padding-left: 40px;
+    padding-left: 3%;
   }
   .b-release
   {
       width: 100%
+  }
+  .home-tags{
+    padding:  20px 0;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .home-tags::-webkit-scrollbar {
+    display: none;
   }
   .home-container{
     display: block;

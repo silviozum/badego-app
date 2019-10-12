@@ -16,24 +16,21 @@
       </div>
       <div class="content-user-articles">
         <div v-for="item in articles" v-if="articles" class="user-articles">
-          <div class="user-article-col1">
-              <img :src="item.data.author.photo">
-          </div>
           <div class="user-article-col2">
             <div class="header-user-article">
+              <img :src="item.data.author.photo">
               <span class="author-name">{{item.data.author.name}}</span>
-              <span>{{item.data.createdAt.timestampValue}}</span>
+              <!-- <span>{{item.data.createdAt}}</span> -->
             </div>
             <div class="name-user-article">
             <nuxt-link :to="'/article/'+item.id">
-              <img :src="item.data.imgRelated">
               <h2>{{item.data.title}}</h2>
+              <img :src="item.data.imgRelated">
             </nuxt-link>
             <div class="home-tags">
               <nav>
                 <li v-for="item in item.data.tags">
                   <nuxt-link :to="{name: 'article-tags-id', params: { id:item } }">{{item}}</nuxt-link>
-
                 </li>
               </nav>
             </div>
@@ -107,7 +104,7 @@ export default {
       let tags = articles.map(function(item){
             return item.data.tags
       })
-    
+
      const getSumTags = obj => {
            const arrayOfTags = Object.values(obj);
            return arrayOfTags.reduce(
@@ -177,17 +174,15 @@ export default {
   margin-top: 50px;
   width: 70%;
 }
-.user-article-col1{
-  display: inline-block;
-  width: 8%;
-  margin-left: 18px;
-  vertical-align: top;
+.content-user-articles .home-tags{
+  padding: 20px 0;
 }
 .user-article-col2{
   display: inline-block;
   width: 70%;
+  padding-left: 4%;
 }
-.user-article-col1 img{
+.user-article-col2 .header-user-article img{
   width: 50px;
   border-radius: 50%;
 }
@@ -229,10 +224,19 @@ export default {
 .article-settings i{
   color: #93999d;
 }
-@media screen and (max-width: 920px){
+
+@media screen and (max-width: 980px){
   .content-user-analytics{
     display: block;
     text-align: center;
+  }
+  .user-article-col2{
+      text-align: left;
+      width: 90%;
+  }
+  .user-article-col2 .header-user-article img{
+    width: 38px;
+    height: 38px;
   }
   .user-info{width: 100%}
   .content-user-articles{width: 100%}

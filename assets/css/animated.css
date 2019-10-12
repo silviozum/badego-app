@@ -1,6 +1,6 @@
 @-webkit-keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0.2;
   }
 
   to {
@@ -10,7 +10,7 @@
 
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0.2;
   }
 
   to {
@@ -25,4 +25,29 @@
 .animated.fast {
   -webkit-animation-duration: 800ms;
   animation-duration: 800ms;
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
 }

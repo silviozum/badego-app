@@ -1,6 +1,26 @@
 <template>
   <div>
   <div class="comments" v-if="comments">
+      <span class="content-title-comments">O que você acha?</span>
+    <div class="content-send-comment">
+    <a-form-item>
+     <a-textarea :rows="4" @change="handleChange" :value="value" class="textarea-comments"></a-textarea>
+   </a-form-item>
+
+   <a-form-item>
+     <a-button
+       htmlType="submit"
+       :loading="submitting"
+       @click="handleSubmit"
+         class="btn-submit-comments"
+
+       ghost
+     >
+       <i class="zwicon-arrow-circle-right"></i>
+     </a-button>
+   </a-form-item>
+
+ </div>
     <a-comment v-for="(item,index) in comments" :key="index">
       <span class="date-comment" slot="actions">{{item.data.createdAt | moment("from", "now", true)}}</span>
       <button
@@ -31,21 +51,6 @@
       </a-comment> -->
     </a-comment>
   </div>
-  <a-form-item>
-   <a-textarea :rows="4" @change="handleChange" :value="value" class="textarea-comments"></a-textarea>
- </a-form-item>
- <a-form-item>
-   <a-button
-     htmlType="submit"
-     :loading="submitting"
-     @click="handleSubmit"
-       class="btn-submit-comments"
-
-     ghost
-   >
-     Commentar
-   </a-button>
- </a-form-item>
 </div>
 </template>
 
@@ -71,6 +76,7 @@ export default {
   },
   methods: {
     async handleSubmit() {
+
       if (!this.value) {
         return;
       }
@@ -80,7 +86,7 @@ export default {
       if(sendComment){
         setTimeout(() => {
           this.submitting = false
-          this.comments.push(sendComment)
+          this.comments.unshift(sendComment)
           this.value = ''
         }, 1000)
       }
@@ -95,14 +101,12 @@ export default {
   },
   async mounted(){
     const getComments = await commentsService.getComments(this.$route.params.id)
-    this.comments = getComments
+    this.comments = getComments.reverse()
 
     const getLikes = []
     const userId = this.user.uid
     this.comments.map(function(item){
       getLikes.push(item.data.like)
-
-      console.log(item.data.like.indexOf(userId))
 
       if(getLikes.indexOf(userId) < 1){
         item.data.alreadyLike = true
@@ -119,6 +123,8 @@ export default {
 <style>
 .comments{
   color: #fff;
+  width: 67%;
+  margin: 0 auto;
 }
 .comments .ant-comment-content-author-name{color: #fff;}
 .date-comment{
@@ -152,10 +158,13 @@ export default {
   font-style: italic;
   white-space: nowrap;
 }
+.comments .ant-form-item{margin: 0;}
 .btn-submit-comments{
   border: 0 !important;
-  position: absolute;
-  top: 0;
+  position: absolute !important;
+  bottom: 2px !important;
+  right:-6px !important;
+  background-color: transparent !important;
 }
 .btn-submit-comments:hover{
   color: #de8145 !important
@@ -165,6 +174,25 @@ export default {
   color: #fff;
   cursor: inherit;
 }
+.content-send-comment{
+  height: 170px;
+  position: relative;
+}
+.content-send-comment .ant-form-item-control,
+.content-send-comment .ant-form-item-children{
+  position: inherit;
+}
 
+.content-send-comment textarea.ant-input{
+  height: auto;
+  padding: 30px 20px;
+  margin-top: 8px;
+  overflow-y: hidden;
+}
 .ant-comment-actions > li > .count-likes:hover{color: #fff;}
+@media screen and (max-width: 980px){
+    .comments{
+      width: 90%;
+    }
+}
 </style>

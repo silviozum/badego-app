@@ -19,7 +19,7 @@ async function submitComment(headTalk,author,articleId){
     article_id: articleId,
     inside_talk:{},
     like:['pora'],
-    createdAt: moment().format('ll')
+    createdAt: moment().format()
   }
   await firebase.firestore().collection('comments').add(data)
   .then(function(docRef) {
@@ -37,7 +37,7 @@ async function submitComment(headTalk,author,articleId){
 
 async function getComments(articleId){
   let comment =[]
-  await firebase.firestore().collection("comments").where("article_id", "==", articleId)
+  await firebase.firestore().collection("comments").where("article_id", "==", articleId).orderBy("createdAt")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
