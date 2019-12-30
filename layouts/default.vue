@@ -47,6 +47,7 @@ export default{
 @import '../assets/css/ligth.css';
 @import '../assets/css/zwicon.css';
 @import '../assets/css/animated.css';
+@import '../assets/css/admin.css';
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

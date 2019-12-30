@@ -123,7 +123,6 @@ export default {
 <style>
 .comments{
   color: #fff;
-  width: 67%;
   margin: 0 auto;
 }
 .comments .ant-comment-content-author-name{color: #fff;}

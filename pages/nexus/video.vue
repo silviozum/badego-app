@@ -1,17 +1,7 @@
 <template>
   <div class="main-to-post">
   <div class="content-editor">
-    <div class="content-editor-header">
-      <span class="header-type">Novo</span>
-      <nav>
-        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='article', }"
-          v-on:click="navegation('article')">Artigo</button></li>
-        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='video', }"
-          v-on:click="navegation('video')">Vídeo</button></li>
-        <li><button  v-bind:class="{ 'active-button-editor-header': post.type==='podcast', }"
-          v-on:click="navegation('podcast')">Podcast</button></li>
-      </nav>
-    </div>
+
     <div class="content-banner-editor"
 
       :style="{ backgroundImage: 'url(\'' + post.imgRelated + '\')' }">
@@ -29,8 +19,8 @@
       </form>
     </div>
 
-    <div class="content-video-editor" v-if="post.type==='video'">
-      <Loading v-if="loading"/>
+    <div class="content-video-editor">
+      <!-- <Loading v-if="loading"/>
       <form ref="form" >
         <input
         id="files"
@@ -45,7 +35,17 @@
         <video controls>
           <source :src="post.videoRelated" type="video/mp4">
         </video>
-      </div>
+      </div> -->
+      <input v-model="post.videoRelated" class="edit-post-title" v-on:change="getUrlVideo($event)">
+      <iframe
+      width="560"
+      height="315"
+      :src="this.post.videoRelated"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      v-if="showIframe"
+      ></iframe>
     </div>
 
     <input type="title" v-model="post.title" class="edit-post-title">
@@ -122,6 +122,7 @@ export default {
     return {
       toEdit: '',
       loading:false,
+      showIframe:false,
       titleType:'artigo',
       post:{
           title:'Título da materia preenche o thumb',
@@ -131,7 +132,7 @@ export default {
           textPreview: '',
           like:['pora'],
           imgRelated:'',
-          videoRelated:'',
+          videoRelated:'URL (youtube,vimeo,etc)',
           editorData: '<p>manda ki fião</p>',
       },
       editor: ClassicEditor,
@@ -189,13 +190,25 @@ export default {
           }
         })
     },
-     async uploadVideo (file) {
-       this.loading = true
-         const path = await userService.uploadVideoReleated(file)
-         console.log(path)
-         if(path.ref.fullPath){
-            this.getVideo(path.ref.fullPath)
-         }
+    //  async uploadVideo (file) {
+    //    this.loading = true
+    //      const path = await userService.uploadVideoReleated(file)
+    //      console.log(path)
+    //      if(path.ref.fullPath){
+    //         this.getVideo(path.ref.fullPath)
+    //      }
+    // },
+    getUrlVideo(e){
+
+      var video_id = this.post.videoRelated.split('v=')[1];
+      var ampersandPosition = video_id.indexOf('&');
+      if(ampersandPosition != -1) {
+        this.post.videoRelated = video_id.substring(0, ampersandPosition)
+
+      }
+      this.post.videoRelated =  'https://www.youtube.com/embed/' + video_id
+      this.showIframe=true
+
     },
     async uploadImage (file) {
       this.loading=true
@@ -216,9 +229,6 @@ export default {
       this.loading=false
     },
 
-    uploadPodcast(file){
-      console.log(file)
-    },
 
     submitPost(){
       this.post.author = this.author
@@ -234,7 +244,6 @@ export default {
 
       let id = this.$route.params.id
       const publish = await userService.edit(id, this.post)
-      console.log(publish)
       this.$router.push({name: 'article-id', params: { id:this.toEditOpen }})
     },
     onSuccess(e){
@@ -278,6 +287,7 @@ export default {
 },
   created(){
     this.previewText()
+    this.post.type = "video"
   },
   components:{
      Tags,

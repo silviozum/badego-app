@@ -135,11 +135,12 @@ export default {
   height: 50px;
   border-radius: 50px;
 }
-  .content-open-menu{display: none;}
+
 @media screen and(max-width:980px){
   .header{
     bottom: 0;
     top: auto;
   }
+
 }
 </style>

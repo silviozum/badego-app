@@ -3,24 +3,25 @@
   <div class="content-release">
     <div v-for="(item, index) in trendings" v-if="index === slide" >
       <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release animated fast"
-      v-if="item.data.type.stringValue === 'article'"
+      
         :style="{ backgroundImage: 'url(\'' + item.data.imgRelated.stringValue + '\')' }"
         :class="{'fadeIn': fadeOut === 5}">
-
       </nuxt-link>
 
-      <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release content-video-release"
+      <!-- <nuxt-link :to="{name: 'article-id', params: { id:item.id } }" class="to-release content-video-release"
         v-if="item.data.type.stringValue === 'video'">
         <video autoplay muted loop class="video-release">
           <source :src="item.data.videoRelated.stringValue" type="video/mp4">
         </video>
-      </nuxt-link>
+      </nuxt-link> -->
+
       <!-- <div class="footer-release">
         <div class="left-footer-release">
           <Author :author="item.data.author" :dateRelease="item.data.createdAt.timestampValue"/>
         </div>
         <SocialShare :item="item.data" />
       </div> -->
+
       <div class="release-info">
         <div class="title-post">
           <h2> {{item.data.title.stringValue}}</h2>
@@ -64,7 +65,7 @@ export default {
           if(this.slide+2  > this.trendings.length){
             this.slide = 0
           }else{
-            this.slide = this.slide + 1
+            // this.slide = this.slide + 1
           }
       }.bind(this), 10000);
   },
@@ -101,6 +102,7 @@ export default {
 .release-info{
   position: absolute;
   bottom: 40px;
+  width: 100%;
 }
 .title-post{
   display: flex;

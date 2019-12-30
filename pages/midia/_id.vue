@@ -1,15 +1,16 @@
 <template>
-  <div style="display:flex;">
   <div class="container content-article" v-if="post">
+
     <div v-if="post.videoRelated.stringValue" class="content-video">
-      <div    class="video-embed">
-        <iframe
-        :src="post.videoRelated.stringValue  + '?&autoplay=1'"
-        frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ></iframe>
-      </div>
+    <div    class="video-embed">
+      <iframe
+      :src="post.videoRelated.stringValue"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      ></iframe>
+    </div>
+      <ArticlesList :article="relatedArticles" class="video-release-related" />
     </div>
 
     <div class="content-image-related" v-if="post.imgRelated.stringValue && this.post.type.stringValue === 'article'"
@@ -29,24 +30,15 @@
       </div>
     </div>
 
-    <div
-    class="content-render-article"
-    v-html="dataPost"
-     :class="{ 'fullText': showMore }"></div>
-
-    <div class="more-content">
-      <button v-if="!showMore" v-on:click="showMore = true">Leia Mais</button>
-      <button v-if="showMore" v-on:click="showMore = false">Mostrar Menos</button>
-    </div>
+    <div class="content-render-article" v-html="dataPost"></div>
 
     <div class="content-comments">
       <Comments :id="id"/>
     </div>
+
+    <ArticlesNav :article="relatedArticles"/>
+
   </div>
-  <div class="col-related">
-      <ArticlesList :article="relatedArticles" class="video-release-related" />
-  </div>
-</div>
 </template>
 
 <script>
@@ -65,7 +57,6 @@ export default {
       post:  null,
       author:null,
       dataPost: null,
-      showMore:false,
       relatedArticles:[]
     }
   },
@@ -106,33 +97,23 @@ export default {
 </script>
 
 <style>
-.fullText{
-  height: auto !important;
-}
-.more-content button{
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0 3%;
-  margin-top: 30px;
-}
-.col-related{
-  width: 40%;
-  margin-left: 14px;
-}
 .content-video{
-  display: block;
+  display: flex;
+
 }
 .video-embed{
-  width: 100%;
+  width: 70%;
+
 }
 .video-embed iframe{
   width: 100%;
-  height: calc(100vh);
+    height: calc(100vh);
 }
-
+.video-release-related{
+  width: 30%
+}
 .content-header-author{
-  padding: 0 3%;
+  max-width:80%;
   margin: 0 auto;
 }
 .content-header-author .share-article{text-align: right;}
@@ -147,8 +128,8 @@ export default {
 }
 
 .content-article{
+  max-width: 1980px;
   margin: 0 auto;
-  width: 100%;
   color: #fff;
   padding-bottom: 65px;
 }
@@ -156,8 +137,9 @@ export default {
 .content-title{
   margin: 0 auto;
   width: 100%;
-  padding: 0 3%;
   margin: 20px 0;
+  text-align: center;
+  padding:0 3%;
 }
 .content-title h1{
   font-weight: bold;
@@ -177,10 +159,8 @@ export default {
   display: block;
 }
 .content-render-article{
-  padding:  0 3%;
+  max-width: 80%;
   margin: 0 auto;
-  height: 140px;
-  overflow: hidden;
   text-align: center;
 }
 .content-render-article img{
@@ -192,6 +172,7 @@ list-style: disc;
 }
 .content-render-article blockquote{
   border-left: 2px solid #fff;
+  max-width: 67%;
   margin: 0 auto;
 }
 .content-render-article blockquote p{
@@ -278,7 +259,7 @@ list-style: disc;
   color: #fff;
   font-size: 20px;
   line-height: 36px;
-
+  max-width: 67%;
   margin: 0 auto;
   margin-bottom: 25px;
   margin-top: 25px;
@@ -299,9 +280,8 @@ list-style: disc;
 }
 .content-comments{
   margin-top: 50px;
-  padding: 0 3%;
   margin: 0 auto;
-
+  width: 80%;
 }
 .content-title-comments{
   font-size: 38px;

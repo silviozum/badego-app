@@ -86,6 +86,24 @@ async function getImage(path) {
   return file
 }
 
+async function listAllUsers() {
+  let list = []
+   await firebase.firestore().collection('users')
+   .get()
+   .then(function(querySnapshot) {
+           querySnapshot.forEach(function(doc) {
+               list.push({
+                 data: doc.data(),
+                 id:doc.id
+               })
+           });
+       })
+       .catch(function(error) {
+           console.log("Error getting documents: ", error);
+       });
+       return list
+}
+
 
 async function userArticles(id) {
   let articles = []
@@ -112,6 +130,7 @@ export const userService = {
   publish,
   like,
   edit,
+  listAllUsers,
   deleteArticle,
   getImage,
   uploadImageReleated,

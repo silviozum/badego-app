@@ -1,0 +1,204 @@
+.content-editor{
+  max-width:1055px;
+  margin: 0 auto;
+  display: block;
+  padding: 15px;
+}
+.content-editor img{
+  width: 100%;
+}
+.content-editor-header{
+  padding-top: 50px;
+}
+.content-editor-header .header-type{
+  font-weight: bold;
+  font-size: 35px;
+  letter-spacing: -1px;
+}
+.content-editor-header nav{
+  margin-top: 30px;
+}
+.content-editor-header nav li{
+  display: inline-block;
+  margin-right: 20px;
+}
+.content-banner-editor{
+  width: 400px;
+  height: 276px;
+  display: block;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.content-video-editor{
+  width: 400px;
+  display: block;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.content-banner-editor form{
+  width: 400px;
+  height: 276px;
+  background-size: cover;
+  background-position: center;
+}
+.content-editor-header nav li button{
+  border-radius: 5px;
+  padding: 8px 20px;
+  border: 2px solid #25292c;
+  background-color:transparent;
+  font-weight: bold;
+}
+.content-editor-header nav li button:active{outline: none;}
+.content-editor-header nav li button:hover,  .active-button-editor-header{
+    border: 2px solid #fff !important;
+}
+.edit-post-title{
+  margin-bottom: 50px;
+  width: 100%;
+  text-indent: 12px;
+  padding: 10px;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 60px;
+  border: 1px solid #50595f;
+  background-color: transparent;
+}
+.content-tags span{
+  font-weight: bold;
+  font-size: 20px;
+}
+.content-tags p{
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+}
+.media-related-post{
+  margin-bottom: 30px;
+}
+.content-submit{
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.content-submit button{
+    background-color: #de8145;
+    border: 0;
+    padding: 8px 20px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.content-submit button:hover{
+  background-color: #d6651c;
+}
+.ck-editor__editable {
+  min-height: 500px;
+ }
+ .ck.ck-editor__main>.ck-editor__editable{
+   background-color: transparent;
+     border-color:#50595f !important;
+ }
+ .image .ck-editor__editable{
+   min-height: auto;
+ }
+ .media-related-post img{
+  display: block;
+  margin-top: 10px;
+  margin: 0 auto;
+ }
+ .content-tags{
+   margin: 20px 0;
+ }
+ .main-to-post{
+   padding-top:20px;
+ }
+
+ .custom-file-input {
+  color: transparent;
+  width: 400px;
+  height: 276px;
+  margin: 20px 0;
+  display: block;
+  outline: none;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-video::before {
+  content: 'upload do video' !important;
+}
+.custom-file-video, .custom-file-video:before {
+  max-width: 500px!important;
+}
+
+.custom-file-input::before {
+  content: 'imagem em destaque';
+  color: #50595f;
+  display: inline-block;
+  background: rgba(54,59,63, 0.2);
+  border: 1px solid #50595f;
+  padding-left: 100px;
+  padding-top: 130px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: 400px;
+  height: 276px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.custom-file-input:hover::before {
+  border: 1px solid #67737b;
+  color: #67737b;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.content-create-preview span{
+  font-size: 36px;
+  font-weight: bold;
+}
+.content-create-preview p{
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+}
+.content-create-preview .edit-post-title{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.content-preview-cols{display:flex;}
+.content-preview-cols > div{
+  width: 50%;
+  position: relative;
+}
+.preview-thumb .tile{
+  width: 400px;
+  height: 276px;
+}
+.preview-thumb .tile__details,.preview-thumb .tile__img {
+  height: 276px;
+}
+.preview-thumb .tile__title p{opacity: 1;}
+.create-preview-inputs{
+  margin-right: 30px;
+}
+.create-preview-inputs textarea{
+  background-color: transparent;
+  outline: none;
+  width: 100%;
+  height: 150px;
+  border: 1px solid #50595f;
+  padding: 20px;
+}
+.edit-post-textarea{
+  background-color: transparent;
+  width: 100%;
+  height: 160px;
+}

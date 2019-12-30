@@ -7,8 +7,8 @@
     </nuxt-link>
   </div>
   <nav>
-    <li><nuxt-link v-on:click="hide()" to="/">feed </nuxt-link></li>
-    <li><nuxt-link to="/">Publicações</nuxt-link></li>
+    <li v-on:click="hide()"><nuxt-link  to="/">feed </nuxt-link></li>
+    <li v-on:click="hide()"><nuxt-link  to="/nexus">Publicar</nuxt-link></li>
     <li class="menu-switch">
       Modo Escuro
       <a-switch  @change='onChange' v-if="disabledTheme"/>
@@ -49,7 +49,9 @@ export default {
     }
   },
   methods:{
-
+    hide(){
+      this.$store.commit('user/openMenuUser', false)
+    },
     onChange(checked){
       this.$store.commit('user/setTheme', checked)
     },
