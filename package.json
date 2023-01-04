@@ -24,7 +24,7 @@
     "ant-design-vue": "^1.1.10",
     "ckeditor5-simple-upload": "^1.0.7",
     "firebase": "^6.2.4",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "uploadcare-vue": "^1.0.0",
     "vue-analytics": "^5.17.2",
     "vue-carousel": "^0.18.0",
@@ -37,7 +37,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
-    "vue-jest": "^3.0.3",
+    "vue-jest": "^4.0.1",
     "nodemon": "^1.18.9"
   }
 }
