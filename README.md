@@ -1,6 +1,6 @@
 # badego
 
-> sexo, drogas e hot rolls
+> blog interface
 
 ## Build Setup
 
