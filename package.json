@@ -24,7 +24,7 @@
     "ant-design-vue": "^1.1.10",
     "ckeditor5-simple-upload": "^1.0.7",
     "firebase": "^6.2.4",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "uploadcare-vue": "^1.0.0",
     "vue-analytics": "^5.17.2",
     "vue-carousel": "^0.18.0",
